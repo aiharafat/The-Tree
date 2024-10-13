@@ -1,8 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Mainlayouts from './components/layouts/Mainlayouts';  // Import Mainlayouts
 import Home from './components/ui/pages/home';  // Import your Home component
+import Family from './components/ui/pages/Family';
 import ErrorElement from './components/ErrorElement'; // Import ErrorElement
-
+import Election from './components/ui/pages/Election';
+import News from './components/ui/pages/News';
 const MainRoutes = createBrowserRouter([
   {
     path: '/',
@@ -11,8 +13,24 @@ const MainRoutes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,        // Your home component
+        path: 'Home',
+        element: <Home />, 
+              
       },
+      {
+        path: 'Family',
+        element: <Family />,
+
+      },
+      {
+        path: 'News',
+        element: <News />
+      },
+      {
+        path: 'Election',
+        element: <Election />
+      }
+
     ],
   },
 ]);

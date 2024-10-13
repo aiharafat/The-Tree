@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Mainlayouts from "../../layouts/Mainlayouts";
 import BottomNavigation from "./BottomNavigation";
 
+
 const Home = () => {
   const [points, setPoints] = useState(100); 
 
@@ -14,13 +15,14 @@ const Home = () => {
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
-        <div className="px-5 z-0">
-          <div className="flex items-center space-x-2 pt-3">
-            <div className="p-2 mt-4 rounded-lg bg-[#0e1c17]"></div>
+        <div className="px-2 z-0">
+          <div className="flex items-center space-x-2 pt-0">
+            <div className="p-2 mt-2 rounded-lg bg-[#0e1c17]"></div>
             <div>
               <p className="mt-4 text-medium">Arafat</p>
             </div>
           </div>
+          
 
           <div className="px-4 mt-20 flex justify-between gap-3">
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
@@ -59,6 +61,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
