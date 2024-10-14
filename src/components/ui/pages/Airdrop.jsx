@@ -15,11 +15,10 @@ const Airdrop = () => {
           <div className="flex items-center justify-between space-x-10 mt-10">
             <div className="flex items-center w-full h-full">
               <div className="w-full px-20 py-40 text-xl ">
-                <span>This is the News page</span>
+                <span>This is the Airdrop page</span>
               </div>
             </div>
           </div>
-
          
         </div>
       </div>

@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 
-
 const Family = () => {
   const [referralLink, setReferralLink] = useState("");
   const [message, setMessage] = useState("");
+  const [isClicked, setIsClicked] = useState(false); // New state for button click
 
- 
   const handleInviteClick = () => {
-    const userId = "12345"; 
-    const generatedLink = `https://yourapp.com/register?ref=${userId}`; 
+    const userId = "12345";
+    const generatedLink = `https://yourapp.com/register?ref=${userId}`;
 
     setReferralLink(generatedLink);
 
-   
-    navigator.clipboard.writeText(generatedLink).then(() => {
-      setMessage("Referral link copied to clipboard!");
-    }).catch(() => {
-      setMessage("Failed to copy referral link.");
-    });
+    navigator.clipboard.writeText(generatedLink)
+      .then(() => {
+        setMessage("");
+      })
+      .catch(() => {
+        setMessage("Failed to copy referral link.");
+      });
+
+    setIsClicked(true); // Set to true when clicked
   };
 
   return (
@@ -25,41 +27,27 @@ const Family = () => {
       <div className="w-full bg-[#7a7474] text-black h-screen font-bold flex flex-col max-w-xl">
         <div className="px-6 z-0">
           {/* Heading */}
-          <div className="text-center mt-10">
-            
-            <p className="mt-2">Invite Friends!<br />Increase your family and get big bonus</p>
+          <div className="text-center text-xl mt-10">
+            <p className="mt-2">Invite Friends!<br />Increase your family and get 100k bonus</p>
           </div>
 
-          {/* Invite Button */}
-          <div className="flex justify-center mt-10">
-            <button
-              onClick={handleInviteClick}
-              className="border bg-black text-white text-center px-6 py-2 rounded-3x1 flex justify-around "
-            >
-              Invite Friends<br />100k for you and your friends
-            </button>
-          </div>
-
-          {/* Show the generated referral link */}
-          {referralLink && (
-            <div className="mt-10 text-center">
-              <p>Copy link: <span className="text-red-500">{referralLink}</span></p>
+          <div className=" text-white text-center px-6 py-6 rounded-3x1 flex justify-around transition-all duration-300" > 
+            {/* Invite Button */}
+            <div className={`flex justify-center mt-10 ${isClicked ? 'w-64 h-16' : 'w-32 h-8'} transition-all duration-300 ease-in-out`}>
+              <button
+                onClick={handleInviteClick}
+                className="bg-gray-800 text-white p-2 rounded transition-all duration-300 ease-in-out py-0"
+              >
+                {isClicked ? "Referral link copied" : "Copy Link" }
+              </button>
             </div>
-          )}
 
-          {/* Message for copied link */}
-          {message && (
-            <div className="mt-5 text-center ">
-              {message}
-            </div>
-          )}
-
-          {/* Bonus Information */}
-          <div className="mt-10 text-center text-sm px-4">
-            <p>
-              Friends invite his friends<br />
-              
-            </p>
+            {/* Show the generated referral link */}
+            {message && (
+              <div className="mt-5 text-center ">
+                {message}
+              </div>
+            )}
           </div>
 
           {/* List of Family and Generation */}
@@ -74,8 +62,6 @@ const Family = () => {
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   );

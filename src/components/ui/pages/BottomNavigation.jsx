@@ -26,7 +26,7 @@ return (
           </Link>
 </div>
 <div className="text-center text-white font-bold w-1/4">
-<Link to="/Election" className="bg-[#272a2f] rounded-lg px-1 py-2 w-full text-center" >
+<Link to="/Airdrop" className="bg-[#272a2f] rounded-lg px-1 py-2 w-full text-center" >
           Airdrop
           </Link>
 </div>
