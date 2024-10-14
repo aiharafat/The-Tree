@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
+
 const Family = () => {
   const [referralLink, setReferralLink] = useState("");
   const [message, setMessage] = useState("");
 
-  // Function to generate the referral link
+ 
   const handleInviteClick = () => {
-    const userId = "12345"; // This should be dynamically fetched from the current user
-    const generatedLink = `https://yourapp.com/register?ref=${userId}`; // Example referral link
+    const userId = "12345"; 
+    const generatedLink = `https://yourapp.com/register?ref=${userId}`; 
 
-    // Set the referral link
     setReferralLink(generatedLink);
 
-    // Copy the link to the clipboard
+   
     navigator.clipboard.writeText(generatedLink).then(() => {
       setMessage("Referral link copied to clipboard!");
     }).catch(() => {
@@ -43,7 +43,7 @@ const Family = () => {
           {/* Show the generated referral link */}
           {referralLink && (
             <div className="mt-10 text-center">
-              <p>Your referral link: <span className="text-red-500">{referralLink}</span></p>
+              <p>Copy link: <span className="text-red-500">{referralLink}</span></p>
             </div>
           )}
 

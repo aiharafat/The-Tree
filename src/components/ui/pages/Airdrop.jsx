@@ -3,7 +3,7 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 import BottomNavigation from "./BottomNavigation";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
-const News = () => {
+const Airdrop = () => {
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
@@ -27,4 +27,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Airdrop;
