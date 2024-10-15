@@ -24,7 +24,7 @@ const Home = () => {
           </div>
           
 
-          <div className="px-4 mt-20 flex justify-between gap-3">
+          <div className="px-4 py-2 mt-20 flex justify-between gap-3">
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
               <p className="text-[10px] text-center text-white mt-1">News 1</p>
             </div>
@@ -39,6 +39,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+        
 
         
         <div className="flex-grow mt-4 rounded-t-[46px] relative top-glow">
