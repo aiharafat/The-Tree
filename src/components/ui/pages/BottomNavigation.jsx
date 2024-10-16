@@ -1,39 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// Importing the  icon from assets
-import newsIcon from "../../../../public/assets/News.png"
-
+import newsIcon from "../../../../public/assets/News.png"; // Make sure this path is correct
 
 const BottomNavigation = () => {
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-green flex justify-around items-center z-50 rounded-3xl h-16">
-      <div className="text-center text-white font-bold w-1/5">
-        <Link to="/Home" className="bg-[#272a2f] rounded-lg px-3 py-2 w-full text-center">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-gradient-to-r from-[#1e3c72] to-[#2a5298] flex justify-around items-center z-50 rounded-3xl h-20 p-2 shadow-lg border border-white border-opacity-20 backdrop-blur-md">
+      
+      <div className="flex w-full justify-around items-center space-x-3">
+        
+        {/* Home Button */}
+        <Link to="/Home" className="text-white font-bold text-center w-1/5 py-2 rounded-lg hover:text-blue-300 hover:shadow-blue-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
           Home
         </Link>
-      </div>
-
-      <div className="text-center text-white font-bold w-1/5">
-        <Link to="/Family" className="bg-[#272a2f] rounded-lg px-3 py-2 w-full text-center">
+        
+        {/* Family Button */}
+        <Link to="/Family" className="text-white font-bold text-center w-1/5 py-2 rounded-lg hover:text-pink-300 hover:shadow-pink-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
           Family
         </Link>
-      </div>
 
-      <div className="text-center text-white font-bold w-1/5">
-        <Link to="/News" className="bg-[#272a2f] rounded-lg px-3 py-2 w-full text-center">
-          
-          <img src={newsIcon} alt="News Icon" className="w-10 h-10 mx-auto" />
+        {/* News Icon */}
+        <Link to="/News" className="rounded-lg w-1/5 text-center flex justify-center items-center transition-all duration-300 transform hover:scale-110">
+          <div className="relative">
+            <img 
+              src={newsIcon} 
+              alt="News Icon" 
+              className="w-16 h-16 opacity-90 filter brightness-200 transition-all duration-300 transform hover:scale-125 hover:shadow-cyan-400 shadow-lg"
+            />
+            {/* Adding a glow effect behind the icon */}
+            <div className="absolute inset-0 bg-white opacity-10 rounded-full blur-lg"></div>
+          </div>
         </Link>
-      </div>
 
-      <div className="text-center text-white font-bold w-1/4">
-        <Link to="/Election" className="bg-[#272a2f] rounded-lg px-1 py-2 w-full text-center">
+        {/* Election Button */}
+        <Link to="/Election" className="text-white font-bold text-center w-1/5 py-2 rounded-lg hover:text-yellow-300 hover:shadow-yellow-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
           Election
         </Link>
-      </div>
 
-      <div className="text-center text-white font-bold w-1/4">
-        <Link to="/Airdrop" className="bg-[#272a2f] rounded-lg px-1 py-2 w-full text-center">
+        {/* Airdrop Button */}
+        <Link to="/Airdrop" className="text-white font-bold text-center w-1/5 py-2 rounded-lg hover:text-green-300 hover:shadow-green-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
           Airdrop
         </Link>
       </div>

@@ -2,10 +2,11 @@ import { useSpring } from 'react-spring';
 
 const usePageTransition = () => {
   const transition = useSpring({
-    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-    to: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    config: { duration: 500 },
+    from: { opacity: 0, transform: 'translateY(-100%)' },  // Start off the screen (top)
+    to: { opacity: 1, transform: 'translateY(0%)' },       // End at the normal position
+    config: { tension: 170, friction: 20 },                // Simulate a softer drop, like sand
   });
+
   return transition;
 };
 
