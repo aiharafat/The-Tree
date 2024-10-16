@@ -1,28 +1,25 @@
-import React from "react";
-import Mainlayouts from "../../layouts/Mainlayouts";
-import BottomNavigation from "./BottomNavigation";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import React, { useState } from 'react';
+import usePageTransition from '../pages/usePageTransition';
 
 const Airdrop = () => {
-  return (
-    <div className="bg-black flex justify-center">
-      <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
-        <div className="px-4 z-0">
-          <div className="flex items-center space-x-2 pt-4">
-           
-          </div>
+  const [wallet, setWallet] = useState('');
+  const pageTransition = usePageTransition();
 
-          <div className="flex items-center justify-between space-x-10 mt-10">
-            <div className="flex items-center w-full h-full">
-              <div className="w-full px-20 py-40 text-xl ">
-                <span>This is the Airdrop page</span>
-              </div>
-            </div>
-          </div>
-         
-        </div>
-      </div>
-    </div>
+  const handleAddWallet = () => {
+    alert(`Wallet ${wallet} added successfully!`);
+  };
+
+  return (
+    <animated.div style={pageTransition} className="airdrop">
+      <h1>Airdrop</h1>
+      <input
+        type="text"
+        placeholder="Enter Telegram Wallet"
+        value={wallet}
+        onChange={(e) => setWallet(e.target.value)}
+      />
+      <button onClick={handleAddWallet}>Add Wallet</button>
+    </animated.div>
   );
 };
 
