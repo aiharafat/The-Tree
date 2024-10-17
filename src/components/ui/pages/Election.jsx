@@ -28,3 +28,4 @@ const Election = () => {
 };
 
 export default Election;
+ 

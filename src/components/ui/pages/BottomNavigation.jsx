@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png"; // Make sure this path is correct
+import familyIcon from "../../../../public/assets/Family.png";
 
 const BottomNavigation = () => {
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-gradient-to-r from-[#1e3c72] to-[#2a5298] flex justify-around items-center z-50 rounded-3xl h-20 p-2 shadow-lg border border-white border-opacity-20 backdrop-blur-md">
+    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-white flex justify-around items-center z-50 rounded-3xl h-20 p-2 shadow-lg border border-white border-opacity-20 backdrop-blur-md">
       
       <div className="flex w-full justify-around items-center space-x-3">
         
@@ -15,7 +16,15 @@ const BottomNavigation = () => {
         
         {/* Family Button */}
         <Link to="/Family" className="text-white font-bold text-center w-1/5 py-2 rounded-lg hover:text-pink-300 hover:shadow-pink-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-          Family
+        <div className="relative">
+            <img 
+              src={familyIcon} 
+              alt="Family Icon" 
+              className="w-16 h-16 opacity-90 filter brightness-200 transition-all duration-300 transform hover:scale-125 hover:shadow-cyan-400 shadow-lg"
+            />
+            {/* Adding a glow effect behind the icon */}
+            <div className="absolute inset-0 bg-white opacity-10 rounded-full blur-lg"></div>
+          </div>
         </Link>
 
         {/* News Icon */}
