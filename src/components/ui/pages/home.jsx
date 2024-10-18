@@ -3,6 +3,7 @@ import { useSpring, animated } from "react-spring";
 import BottomNavigation from "./BottomNavigation"; // Import your BottomNavigation component
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
+import energyIcon from "../../../../public/assets/energy.png"; // Import energy icon
 import { Link } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
@@ -10,17 +11,25 @@ import electionIcon from "../../../../public/assets/Election.png";
 const Home = () => {
   const [coins, setCoins] = useState(0);
   const [tapped, setTapped] = useState(false);
-  const [points, setPoints] = useState(100);
+  const [energy, setEnergy] = useState(1000); // Track energy state
+
   const isActive = (path) => location.pathname === path;
+
   const handleTap = () => {
     setCoins(coins + 100);
     setTapped(true);
+
+    // Decrease energy by 10 on each tap
+    if (energy > 0) {
+      setEnergy(energy - 10);
+    }
+
     setTimeout(() => setTapped(false), 500); // Reset animation after 500ms
   };
 
   const buttonAnimation = useSpring({
     transform: tapped ? "scale(1.2)" : "scale(1)",
-    config: { tension: 300, friction: 10 }
+    config: { tension: 300, friction: 10 },
   });
 
   return (
@@ -65,52 +74,53 @@ const Home = () => {
                 </div>
               </Link>
             </div>
-
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-            <Link to="/News" className="text-center">
-          <div className="relative">
-            <img
-              src={newsIcon}
-              alt="News Icon"
-              className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                isActive("/News")
-                  ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                  : "brightness-100"
-              }`}
-            />
-            <span
-              className={`text-sm  ${
-                isActive("/News") ? "text-purple-500" : "text-gray-600"
-              }`}
-            >
-              News 
-            </span>
-           </div>
-        </Link>
+              <Link to="/News" className="text-center">
+                <div className="relative">
+                  <img
+                    src={newsIcon}
+                    alt="News Icon"
+                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                      isActive("/News")
+                        ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                        : "brightness-100"
+                    }`}
+                  />
+                  <span
+                    className={`text-sm ${
+                      isActive("/News") ? "text-purple-500" : "text-gray-600"
+                    }`}
+                  >
+                    News
+                  </span>
+                </div>
+              </Link>
             </div>
 
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-            <Link to="/News" className="text-center">
-          <div className="relative">
-            <img
-              src={newsIcon}
-              alt="News Icon"
-              className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                isActive("/News")
-                  ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                  : "brightness-100"
-              }`}
-            />
-            <span
-              className={`text-sm  ${
-                isActive("/News") ? "text-purple-500" : "text-gray-600"
-              }`}
-            >
-              News 
-            </span>
-           </div>
-        </Link>
+              <Link to="/News" className="text-center">
+                <div className="relative">
+                  <img
+                    src={newsIcon}
+                    alt="News Icon"
+                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                      isActive("/News")
+                        ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                        : "brightness-100"
+                    }`}
+                  />
+                  <span
+                    className={`text-sm ${
+                      isActive("/News") ? "text-purple-500" : "text-gray-600"
+                    }`}
+                  >
+                    News
+                  </span>
+                </div>
+              </Link>
             </div>
+
+            
 
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
               <Link to="/Election" className="text-center">
@@ -126,8 +136,7 @@ const Home = () => {
                   />
                   <span
                     className={`text-sm ${
-                      isActive("/Election")
-                        ? "text-yellow-500" : "text-gray-600"
+                      isActive("/Election") ? "text-yellow-500" : "text-gray-600"
                     }`}
                   >
                     Election
@@ -153,14 +162,15 @@ const Home = () => {
               className="w-[330px] h-[330px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out hover:scale-90 active:scale-75"
             >
               <div className="w-full h-full rounded-full bg-[#0e1c17] flex justify-center items-center">
-                <img src={mainCharacter} />
+                <img src={mainCharacter} className="w-full h-full" />
               </div>
             </animated.button>
           </div>
 
-          {/* Points Display */}
-          <div className="flex items-center px-2 py-2 mt-10 w-[180px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
-            <span>Energy = 1000/1000</span>
+          {/* Energy Display */}
+          <div className="flex items-center px-2 py-2 mt-10 w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
+            <img src={energyIcon} className="w-[20px] h-[20px] mr-2" /> {/* Energy icon */}
+            <span> {energy}/1000</span>
           </div>
 
           {/* Bottom Navigation */}
