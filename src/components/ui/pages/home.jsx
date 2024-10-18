@@ -67,6 +67,52 @@ const Home = () => {
             </div>
 
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+            <Link to="/News" className="text-center">
+          <div className="relative">
+            <img
+              src={newsIcon}
+              alt="News Icon"
+              className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                isActive("/News")
+                  ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                  : "brightness-100"
+              }`}
+            />
+            <span
+              className={`text-sm  ${
+                isActive("/News") ? "text-purple-500" : "text-gray-600"
+              }`}
+            >
+              News 
+            </span>
+           </div>
+        </Link>
+            </div>
+
+            <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+            <Link to="/News" className="text-center">
+          <div className="relative">
+            <img
+              src={newsIcon}
+              alt="News Icon"
+              className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                isActive("/News")
+                  ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                  : "brightness-100"
+              }`}
+            />
+            <span
+              className={`text-sm  ${
+                isActive("/News") ? "text-purple-500" : "text-gray-600"
+              }`}
+            >
+              News 
+            </span>
+           </div>
+        </Link>
+            </div>
+
+            <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
               <Link to="/Election" className="text-center">
                 <div className="relative">
                   <img
