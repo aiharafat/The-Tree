@@ -36,8 +36,7 @@ const Home = () => {
     <div className="bg-black flex justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl relative">
         <div
-          className="absolute inset-0 bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${backgroundIcon})` }}
+          
         />
         
         <div className="relative z-10 px-2"> {/* Make sure content is above the background */}
@@ -108,7 +107,7 @@ const Home = () => {
               disabled={energy <= 0}
             >
               <div className="w-full h-full rounded-full bg-[#0e1c17] flex justify-center items-center">
-                <img src={mainCharacter} className="w-full h-full" />
+                
               </div>
             </animated.button>
           </div>
