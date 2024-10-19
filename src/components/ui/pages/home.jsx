@@ -10,29 +10,38 @@ import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
 
 const Home = () => {
-  const [coins, setCoins] = useState(() =>  parseInt (localStorage.getItem("coins")) || 0) ;
+  const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
   const [tapped, setTapped] = useState(false);
-  const [energy, setEnergy] = useState(() =>  parseInt (localStorage.getItem("energy")) || 1000);
+  const [energy, setEnergy] = useState(() => parseInt(localStorage.getItem("energy")) || 1000);
   const [coinPopups, setCoinPopups] = useState([]); // Track multiple coin popups
   const [showMessage, setShowMessage] = useState(false); // Defined showMessage
+  const [boostActive, setBoostActive] = useState(false); // Tracks the boost status
+  const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3); // 3 boosts per day
+  const [boostUsedToday, setBoostUsedToday] = useState(() => JSON.parse(localStorage.getItem("boostUsedToday")) || false);
+  const [boostTimer, setBoostTimer] = useState(0); // Timer for boost countdown
 
-  
   useEffect(() => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("energy", energy);
-  }, [coins, energy]);
+    localStorage.setItem("boostCount", boostCount);
+    localStorage.setItem("boostUsedToday", boostUsedToday);
+  }, [coins, energy, boostCount, boostUsedToday]);
 
-  // Save progress whenever coins or energy changes
+  // Mechanism for daily boost open or not
   useEffect(() => {
-    localStorage.setItem("coins", coins);
-    localStorage.setItem("energy", energy);
-  }, [coins, energy]);
+    const lastBoostDate = localStorage.getItem("lastBoostDate");
+    const today = new Date().toLocaleDateString();
+
+    if (lastBoostDate !== today) {
+      setBoostCount(3);
+      localStorage.setItem("lastBoostDate", today);
+    }
+  }, []);
 
   // Function to handle multiple taps
   const handleTap = (e) => {
-    if (energy <= 0) {
+    if (energy <= 10) {
       setShowMessage(true);
-      // Hide message after 2 seconds
       setTimeout(() => {
         setShowMessage(false);
       }, 2000);
@@ -45,7 +54,9 @@ const Home = () => {
       id: Date.now(), // Unique ID for each popup
     };
 
-    setCoins(coins + 10);
+    const coinsToAdd = boostActive ? 20 : 10;
+
+    setCoins(coins + coinsToAdd);
     setTapped(true);
 
     if (energy > 0) {
@@ -66,12 +77,30 @@ const Home = () => {
   };
 
   const handleBoost = () => {
-    if (coins >= 250) {
-      setEnergy(1000); // Restore energy to full
-      setCoins(coins - 250); // Deduct 250 coins
-      setShowMessage(false); // Hide any error message
+    if (boostCount > 0 && !boostActive) {
+      setBoostActive(true);
+      setBoostCount(boostCount - 1);
+      setBoostTimer(30); // Start countdown at 30 seconds
+
+      // Deactivation after 30 seconds
+      const boostInterval = setInterval(() => {
+        setBoostTimer((prevTime) => {
+          if (prevTime > 1) {
+            return prevTime - 1; // Decrease timer by 1 second
+          } else {
+            clearInterval(boostInterval); // Stop countdown when it reaches 0
+            setBoostActive(false); // End boost
+            return 0;
+          }
+        });
+      }, 1000); // Update every second
+
+      setTimeout(() => {
+        clearInterval(boostInterval);
+        setBoostActive(false);
+      }, 30000); // Stop boost after 30 seconds
     } else {
-      setShowMessage(true); // Show error if not enough coins
+      setShowMessage(true); // Not enough boosts
     }
   };
 
@@ -89,8 +118,6 @@ const Home = () => {
     return () => clearInterval(interval); // Clean up the interval on component unmount
   }, []);
 
-  
-
   const buttonAnimation = useSpring({
     transform: tapped ? "scale(1.2)" : "scale(1)",
     config: { tension: 300, friction: 10 },
@@ -100,43 +127,34 @@ const Home = () => {
 
   return (
     <div className="bg-black flex justify-center">
-      <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
-        <div />
+    <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
+      <div />
 
-        <div className="relative z-10 px-2"> {/* Ensure content is above background */}
-          <div className="flex items-center space-x-2 pt-0">
-            <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
-              <Link to="/info" className="text-center">
-                <div className="relative">
-                  <img
-                    src={infoIcon}
-                    alt="info Icon"
-                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                      isActive("/info")
-                        ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                        : "brightness-100"
-                    }`}
-                  />
-                  <span className={`text-sm ${isActive("/info") ? "text-yellow-500" : "text-gray-600"}`}>
-                    
-                  </span>
-                </div>
-              </Link>
-            </div>
-            <div>
-              <p className="mt-4 px-6 text-xl">Arafat</p>
-            </div>
+      <div className="relative z-10 px-2"> {/* Ensure content is above background */}
+        <div className="flex items-center space-x-2 pt-0">
+          <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
+            <Link to="/info" className="text-center">
+              <div className="relative">
+                <img
+                  src={infoIcon}
+                  alt="info Icon"
+                  className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                    isActive("/info")
+                      ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                      : "brightness-100"
+                  }`}
+                />
+                <span className={`text-sm ${isActive("/info") ? "text-yellow-500" : "text-gray-600"}`}></span>
+              </div>
+            </Link>
           </div>
-
-          {/* Points Display */}
-          <div className="absolute top-0 right-[90px] mt-4 flex items-center px-2 text-white ">
-            <span>Total earn = </span>
-            <p className="text-xl text-white"> {1000 + coins}</p>
-            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+          <div>
+            <p className="mt-4 px-6 text-xl">Arafat</p>
           </div>
+        </div>
 
-          {/* News Section */}
-          <div className="cpx-4 py-2 mt-20 flex justify-between gap-3">
+           {/* News Section */}
+           <div className="cpx-4 py-2 mt-20 flex justify-between gap-3">
             {[...Array(3)].map((_, index) => (
               <div key={index} className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <Link to="/News" className="text-center">
@@ -150,9 +168,7 @@ const Home = () => {
                           : "brightness-100"
                       }`}
                     />
-                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-600"}`}>
-                      News
-                    </span>
+                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-600"}`}>News</span>
                   </div>
                 </Link>
               </div>
@@ -186,6 +202,13 @@ const Home = () => {
             </div>
           </div>
 
+          {/* Points Display */}
+          <div className="absolute top-0 right-[90px] mt-4 flex items-center px-2 text-white ">
+            <span>Total earn = </span>
+            <p className="text-xl text-white"> {1000 + coins}</p>
+            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+          </div>
+
           {/* Tappable Button Section */}
           <div className="px-7 mt-5 flex justify-center">
             <animated.button
@@ -202,6 +225,13 @@ const Home = () => {
             </animated.button>
           </div>
 
+          {/* Boost Timer */}
+          {boostActive && boostTimer > 0 && (
+            <div className="text-center text-white font-bold mt-4">
+              Boost Active! Time Left: {boostTimer}s
+            </div>
+          )}
+
           {/* Coin Pop-ups */}
           {coinPopups.map((popup) => (
             <div
@@ -214,7 +244,7 @@ const Home = () => {
                 fontSize: "40px", // Adjust size
               }}
             >
-              +10
+              +{boostActive ? 20 : 10}
             </div>
           ))}
 
@@ -225,20 +255,20 @@ const Home = () => {
               <span>{energy}/1000</span>
             </div>
 
-            {/* Boost for 250 */}
+            {/* Boost Button */}
             <div
               className="flex items-center px-2 w-[150px] h-8 bg-gray-800 text-white rounded-md shadow-lg"
               onClick={handleBoost}
             >
-              <span>Boost for 250</span>
-              <img src={dollarCoin} className="w-[30px] h-[30px]"/>
+              <span>{boostCount > 0 ? `Boost (${boostCount} left)` : "No Boosts Left"}</span>
+              <img src={dollarCoin} className="w-[30px] h-[30px]" />
             </div>
           </div>
 
           {/* Error message when energy is out */}
           {showMessage && (
             <div className="text-center mt-10 text-red-500 font-semibold">
-              Sorry, not enough energy or coins!
+              Sorry, not enough energy or Boosts!
             </div>
           )}
 
@@ -251,4 +281,3 @@ const Home = () => {
 };
 
 export default Home;
-
