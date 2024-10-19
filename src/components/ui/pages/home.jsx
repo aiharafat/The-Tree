@@ -19,7 +19,7 @@ const Home = () => {
   const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3); // 3 boosts per day
   const [boostUsedToday, setBoostUsedToday] = useState(() => JSON.parse(localStorage.getItem("boostUsedToday")) || false);
   const [boostTimer, setBoostTimer] = useState(0); // Timer for boost countdown
-
+  
   useEffect(() => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("energy", energy);
@@ -261,7 +261,7 @@ const Home = () => {
               onClick={handleBoost}
             >
               <span>{boostCount > 0 ? `Boost (${boostCount} left)` : "No Boosts Left"}</span>
-              <img src={dollarCoin} className="w-[30px] h-[30px]" />
+              
             </div>
           </div>
 
