@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import BottomNavigation from "./BottomNavigation"; 
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
@@ -10,15 +10,26 @@ import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
 
 const Home = () => {
-  const [coins, setCoins] = useState(0);
+  const [coins, setCoins] = useState(() =>  parseInt (localStorage.getItem("coins")) || 0) ;
   const [tapped, setTapped] = useState(false);
-  const [energy, setEnergy] = useState(1000);
+  const [energy, setEnergy] = useState(() =>  parseInt (localStorage.getItem("energy")) || 1000);
   const [coinPopups, setCoinPopups] = useState([]); // Track multiple coin popups
   const [showMessage, setShowMessage] = useState(false); // Defined showMessage
 
+  
+  useEffect(() => {
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("energy", energy);
+  }, [coins, energy]);
+
+  // Save progress whenever coins or energy changes
+  useEffect(() => {
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("energy", energy);
+  }, [coins, energy]);
+
   // Function to handle multiple taps
   const handleTap = (e) => {
-   
     if (energy <= 0) {
       setShowMessage(true);
       // Hide message after 2 seconds
@@ -37,10 +48,9 @@ const Home = () => {
     setCoins(coins + 10);
     setTapped(true);
 
-
     if (energy > 0) {
       setEnergy(energy - 10);
-    } else {}
+    }
 
     // Add new pop-up to the array
     setCoinPopups((prev) => [...prev, tapPosition]);
@@ -54,7 +64,7 @@ const Home = () => {
       setTapped(false);
     }, 200);
   };
-    
+
   const handleBoost = () => {
     if (coins >= 250) {
       setEnergy(1000); // Restore energy to full
@@ -65,12 +75,28 @@ const Home = () => {
     }
   };
 
+  // Automatically restore energy every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setEnergy((prevEnergy) => {
+        if (prevEnergy < 1000) {
+          return prevEnergy + 1; // Increase energy by 1 every second
+        }
+        return prevEnergy; // Ensure energy doesn't exceed 1000
+      });
+    }, 1000);
+
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, []);
+
+  
+
   const buttonAnimation = useSpring({
     transform: tapped ? "scale(1.2)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
 
-  const isActive = (path) => location.pathname === path; // Move this function outside handleTap
+  const isActive = (path) => location.pathname === path; // Check if current route is active
 
   return (
     <div className="bg-black flex justify-center">
@@ -80,7 +106,7 @@ const Home = () => {
         <div className="relative z-10 px-2"> {/* Ensure content is above background */}
           <div className="flex items-center space-x-2 pt-0">
             <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
-            <Link to="/info" className="text-center">
+              <Link to="/info" className="text-center">
                 <div className="relative">
                   <img
                     src={infoIcon}
@@ -92,7 +118,7 @@ const Home = () => {
                     }`}
                   />
                   <span className={`text-sm ${isActive("/info") ? "text-yellow-500" : "text-gray-600"}`}>
-                    info
+                    
                   </span>
                 </div>
               </Link>
@@ -108,9 +134,6 @@ const Home = () => {
             <p className="text-xl text-white"> {1000 + coins}</p>
             <img src={dollarCoin} className="w-[30px] h-[30px]" />
           </div>
-
-         
-
 
           {/* News Section */}
           <div className="cpx-4 py-2 mt-20 flex justify-between gap-3">
@@ -157,9 +180,9 @@ const Home = () => {
 
           {/* Coin Earn Section */}
           <div className="px-4 mt-3 flex justify-center">
-            <div className="px-4 py-2 flex items-center space-x-2">
-              <img src={dollarCoin} className="w-[60px] h-[60px]" />
-              <p className="text-4xl text-white">{1000 + coins}</p>
+            <div className="px-2  mt-0 flex items-center space-x-0">
+              <img src={dollarCoin} className="w-[50px] h-[50px] py-0" />
+              <p className="text-4xl mt-0 text-white">{1000 + coins}</p>
             </div>
           </div>
 
@@ -195,27 +218,28 @@ const Home = () => {
             </div>
           ))}
 
-          <div className="flex justify-between gap-3 px-2 py-3" 
-            
-          >
+          <div className="flex justify-between gap-3 px-2 py-3">
             {/* Energy Display */}
-          <div className="flex items-center px-2   w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
-            <img src={energyIcon} className="w-[20px] h-[20px] mr-2" />
-            <span>{energy}/1000</span>
-          </div>
-         
-         
+            <div className="flex items-center px-2 w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
+              <img src={energyIcon} className="w-[20px] h-[20px] mr-2" />
+              <span>{energy}/1000</span>
+            </div>
 
-          <div className="flex items-center px-2   w-[150px] h-8 bg-gray-800 text-white rounded-md shadow-lg"
-          onClick={handleBoost}
-          >
-            <span>Boost for 250</span>
-            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+            {/* Boost for 250 */}
+            <div
+              className="flex items-center px-2 w-[150px] h-8 bg-gray-800 text-white rounded-md shadow-lg"
+              onClick={handleBoost}
+            >
+              <span>Boost for 250</span>
+              <img src={dollarCoin} className="w-[30px] h-[30px]"/>
+            </div>
           </div>
 
-          </div>
+          {/* Error message when energy is out */}
           {showMessage && (
-            <div className="text-center mt-10 text-red-500 font-semibold">Sorry, ran out of energy!</div>
+            <div className="text-center mt-10 text-red-500 font-semibold">
+              Sorry, not enough energy or coins!
+            </div>
           )}
 
           {/* Bottom Navigation */}
@@ -227,3 +251,4 @@ const Home = () => {
 };
 
 export default Home;
+
