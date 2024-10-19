@@ -7,7 +7,7 @@ import energyIcon from "../../../../public/assets/energy.png";
 import { Link } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
-import infoIcon from "../../../../public/assets/info.png";
+import infoIcon from "../../../../public/assets/infoo.png";
 
 const Home = () => {
   const [coins, setCoins] = useState(0);
@@ -18,6 +18,16 @@ const Home = () => {
 
   // Function to handle multiple taps
   const handleTap = (e) => {
+   
+    if (energy <= 0) {
+      setShowMessage(true);
+      // Hide message after 2 seconds
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 2000);
+      return;
+    }
+
     const tapPosition = {
       x: e.touches[0].clientX, // Get x coordinate of the tap
       y: e.touches[0].clientY, // Get y coordinate of the tap
@@ -27,9 +37,10 @@ const Home = () => {
     setCoins(coins + 10);
     setTapped(true);
 
+
     if (energy > 0) {
       setEnergy(energy - 10);
-    }
+    } else {}
 
     // Add new pop-up to the array
     setCoinPopups((prev) => [...prev, tapPosition]);
@@ -38,6 +49,20 @@ const Home = () => {
     setTimeout(() => {
       setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
     }, 500);
+
+    setTimeout(() => {
+      setTapped(false);
+    }, 200);
+  };
+    
+  const handleBoost = () => {
+    if (coins >= 250) {
+      setEnergy(1000); // Restore energy to full
+      setCoins(coins - 250); // Deduct 250 coins
+      setShowMessage(false); // Hide any error message
+    } else {
+      setShowMessage(true); // Show error if not enough coins
+    }
   };
 
   const buttonAnimation = useSpring({
@@ -54,9 +79,26 @@ const Home = () => {
 
         <div className="relative z-10 px-2"> {/* Ensure content is above background */}
           <div className="flex items-center space-x-2 pt-0">
-            <div className="p-3 mt-5 rounded-lg bg-[#0e1c17]"></div>
+            <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
+            <Link to="/info" className="text-center">
+                <div className="relative">
+                  <img
+                    src={infoIcon}
+                    alt="info Icon"
+                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${
+                      isActive("/info")
+                        ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
+                        : "brightness-100"
+                    }`}
+                  />
+                  <span className={`text-sm ${isActive("/info") ? "text-yellow-500" : "text-gray-600"}`}>
+                    info
+                  </span>
+                </div>
+              </Link>
+            </div>
             <div>
-              <p className="mt-4 text-xl">Arafat</p>
+              <p className="mt-4 px-6 text-xl">Arafat</p>
             </div>
           </div>
 
@@ -67,12 +109,11 @@ const Home = () => {
             <img src={dollarCoin} className="w-[30px] h-[30px]" />
           </div>
 
-          <div  className="">
-          
-          </div>
+         
+
 
           {/* News Section */}
-          <div className="px-4 py-2 mt-20 flex justify-between gap-3">
+          <div className="cpx-4 py-2 mt-20 flex justify-between gap-3">
             {[...Array(3)].map((_, index) => (
               <div key={index} className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <Link to="/News" className="text-center">
@@ -132,7 +173,7 @@ const Home = () => {
               }`}
               disabled={energy <= 0}
             >
-              <div className="w-full h-full rounded-full bg-[#0e1c17] flex justify-center items-center">
+              <div className="w-full h-full rounded-full bg-[#0e1c17] flex justify-center brightness-1 items-center">
                 <img src={dollarCoin} className="w-full h-full" />
               </div>
             </animated.button>
@@ -154,13 +195,27 @@ const Home = () => {
             </div>
           ))}
 
-          {/* Energy Display */}
-          <div className="flex items-center px-2 py-2 mt-10 w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
+          <div className="flex justify-between gap-3 px-2 py-3" 
+            
+          >
+            {/* Energy Display */}
+          <div className="flex items-center px-2   w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
             <img src={energyIcon} className="w-[20px] h-[20px] mr-2" />
             <span>{energy}/1000</span>
           </div>
+         
+         
+
+          <div className="flex items-center px-2   w-[150px] h-8 bg-gray-800 text-white rounded-md shadow-lg"
+          onClick={handleBoost}
+          >
+            <span>Boost for 250</span>
+            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+          </div>
+
+          </div>
           {showMessage && (
-            <div className="text-center mt-4 text-red-500 font-semibold">Sorry, ran out of energy!</div>
+            <div className="text-center mt-10 text-red-500 font-semibold">Sorry, ran out of energy!</div>
           )}
 
           {/* Bottom Navigation */}
