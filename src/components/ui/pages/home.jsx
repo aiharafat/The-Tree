@@ -4,118 +4,124 @@ import BottomNavigation from "./BottomNavigation";
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import energyIcon from "../../../../public/assets/energy.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
 
 const Home = () => {
+  const [tapped, setTapped] = useState(false); 
+  const location = useLocation();
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
-  const [tapped, setTapped] = useState(false);
   const [energy, setEnergy] = useState(() => parseInt(localStorage.getItem("energy")) || 1000);
-  const [coinPopups, setCoinPopups] = useState([]); // Track multiple coin popups
-  const [showMessage, setShowMessage] = useState(false); // Defined showMessage
-  const [boostActive, setBoostActive] = useState(false); // Tracks the boost status
-  const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3); // 3 boosts per day
-  const [boostUsedToday, setBoostUsedToday] = useState(() => JSON.parse(localStorage.getItem("boostUsedToday")) || false);
-  const [boostTimer, setBoostTimer] = useState(0); // Timer for boost countdown
+  const [coinPopups, setCoinPopups] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+  const [boostActive, setBoostActive] = useState(false);
+  const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3);
+  const [boostTimer, setBoostTimer] = useState(0);
+  const levelNames = [ "Bronze",    // From 0 to 4999 coins
+    "Silver",    // From 5000 coins to 24,999 coins
+    "Gold",      // From 25,000 coins to 99,999 coins
+    "Platinum",  // From 100,000 coins to 999,999 coins
+    "Diamond",   // From 1,000,000 coins to 2,000,000 coins
+    "Epic",      // From 2,000,000 coins to 10,000,000 coins
+    "Legendary", // From 10,000,000 coins to 50,000,000 coins
+    "Master",    // From 50,000,000 coins to 100,000,000 coins
+    "GrandMaster", // From 100,000,000 coins to 1,000,000,000 coins
+    "Lord"     ]; // Your existing level names
+  const levelMinPoints = [ 0,        // Bronze
+    250,     // Silver
+    1000,    // Gold
+    2000,   // Platinum
+    4000,  // Diamond
+    10000,  // Epic
+    50000, // Legendary
+    10000, // Master
+    100000,// GrandMaster
+    1000000// Lord // Your existing level min points
+  ];
+  const [levelIndex, setLevelIndex] = useState(0); // Starting level index
+
+  const calculateProgress = () => {
+    if (levelIndex >= levelNames.length - 1) return 100;
+    const currentLevelMin = levelMinPoints[levelIndex];
+    const nextLevelMin = levelMinPoints[levelIndex + 1];
+    return Math.min(((coins - currentLevelMin) / (nextLevelMin - currentLevelMin)) * 100, 100);
+  };
   
+
+  useEffect(() => {
+    if (coins >= levelMinPoints[levelIndex + 1] && levelIndex < levelNames.length - 1) {
+      setLevelIndex((prevIndex) => prevIndex + 1);
+    } else if (coins < levelMinPoints[levelIndex] && levelIndex > 0) {
+      setLevelIndex((prevIndex) => prevIndex - 1);
+    }
+  }, [coins, levelIndex]);
+
   useEffect(() => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("energy", energy);
     localStorage.setItem("boostCount", boostCount);
-    localStorage.setItem("boostUsedToday", boostUsedToday);
-  }, [coins, energy, boostCount, boostUsedToday]);
+  }, [coins, energy, boostCount]);
 
-  // Mechanism for daily boost open or not
   useEffect(() => {
     const lastBoostDate = localStorage.getItem("lastBoostDate");
     const today = new Date().toLocaleDateString();
-
     if (lastBoostDate !== today) {
       setBoostCount(3);
       localStorage.setItem("lastBoostDate", today);
     }
   }, []);
 
-  // Function to handle multiple taps
   const handleTap = (e) => {
     if (energy <= 10) {
       setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 2000);
+      setTimeout(() => setShowMessage(false), 2000);
       return;
     }
 
     const tapPosition = {
-      x: e.touches[0].clientX, // Get x coordinate of the tap
-      y: e.touches[0].clientY, // Get y coordinate of the tap
-      id: Date.now(), // Unique ID for each popup
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      id: Date.now(),
     };
 
     const coinsToAdd = boostActive ? 20 : 10;
+    setCoins((prevCoins) => prevCoins + coinsToAdd);
+    setEnergy((prevEnergy) => Math.max(prevEnergy - 10, 0));
 
-    setCoins(coins + coinsToAdd);
-    setTapped(true);
-
-    if (energy > 0) {
-      setEnergy(energy - 10);
-    }
-
-    // Add new pop-up to the array
     setCoinPopups((prev) => [...prev, tapPosition]);
-
-    // Remove the pop-up after 500ms
     setTimeout(() => {
       setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
     }, 500);
-
-    setTimeout(() => {
-      setTapped(false);
-    }, 200);
   };
 
   const handleBoost = () => {
     if (boostCount > 0 && !boostActive) {
       setBoostActive(true);
-      setBoostCount(boostCount - 1);
-      setBoostTimer(30); // Start countdown at 30 seconds
-
-      // Deactivation after 30 seconds
+      setBoostCount((prevCount) => prevCount - 1);
+      setBoostTimer(30);
+      
       const boostInterval = setInterval(() => {
         setBoostTimer((prevTime) => {
-          if (prevTime > 1) {
-            return prevTime - 1; // Decrease timer by 1 second
-          } else {
-            clearInterval(boostInterval); // Stop countdown when it reaches 0
-            setBoostActive(false); // End boost
+          if (prevTime <= 1) {
+            clearInterval(boostInterval);
+            setBoostActive(false);
             return 0;
           }
+          return prevTime - 1;
         });
-      }, 1000); // Update every second
-
-      setTimeout(() => {
-        clearInterval(boostInterval);
-        setBoostActive(false);
-      }, 30000); // Stop boost after 30 seconds
+      }, 1000);
     } else {
-      setShowMessage(true); // Not enough boosts
+      setShowMessage(true);
     }
   };
 
-  // Automatically restore energy every second
   useEffect(() => {
     const interval = setInterval(() => {
-      setEnergy((prevEnergy) => {
-        if (prevEnergy < 1000) {
-          return prevEnergy + 1; // Increase energy by 1 every second
-        }
-        return prevEnergy; // Ensure energy doesn't exceed 1000
-      });
+      setEnergy((prevEnergy) => (prevEnergy < 1000 ? prevEnergy + 1 : 1000));
     }, 1000);
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const buttonAnimation = useSpring({
@@ -123,38 +129,63 @@ const Home = () => {
     config: { tension: 300, friction: 10 },
   });
 
-  const isActive = (path) => location.pathname === path; // Check if current route is active
+  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="bg-black flex justify-center">
-    <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
-      <div />
+      <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
+        <div className="relative z-10 px-2">
+          <div className="flex items-center space-x-2 pt-0">
+            <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
+              <Link to="/info" className="text-center">
+                <div className="relative">
+                  <img
+                    src={infoIcon}
+                    alt="info Icon"
+                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/info") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
+                  />
+                </div>
+              </Link>
+            </div>
+            <div>
+              <p className="mt-4 px-6 text-xl">Arafat</p>
+            </div>
+          </div>
 
-      <div className="relative z-10 px-2"> {/* Ensure content is above background */}
-        <div className="flex items-center space-x-2 pt-0">
-          <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
-            <Link to="/info" className="text-center">
-              <div className="relative">
-                <img
-                  src={infoIcon}
-                  alt="info Icon"
-                  className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                    isActive("/info")
-                      ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                      : "brightness-100"
-                  }`}
-                />
-                <span className={`text-sm ${isActive("/info") ? "text-yellow-500" : "text-gray-600"}`}></span>
+          <div className="flex items-center mt-8 w-1/3">
+            <div className="w-full ">
+              <div className="flex justify-between">
+                <p className="text-sm">{levelNames[levelIndex]}</p>
+                <p className="text-sm">{levelIndex + 1} <span className="text-[#95908a]">/ {levelNames.length}</span></p>
               </div>
-            </Link>
-          </div>
-          <div>
-            <p className="mt-4 px-6 text-xl">Arafat</p>
-          </div>
-        </div>
+              <div className="relative flex items-center mt-1 border-2 border-[#43433b] rounded-full">
+  {/* Progress bar container */}
+  <div className="w-full h-2 bg-[#43433b]/[0.6] rounded-full relative">
+    {/* Dividers spaced across the full width of the progress bar */}
+    {[...Array(9)].map((_, index) => (
+      <div
+        key={index}
+        className={`absolute top-0 bottom-0 w-1/10 h-full ${index < levelIndex ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-[#43433b]/[0.6]'} rounded-full`}
+        style={{
+          left: `${index * 9}%`, // Space the segments evenly
+          width: '20%', // Each segment occupies 10% of the bar
+        }}
+      ></div>
+    ))}
 
-           {/* News Section */}
-           <div className="cpx-4 py-2 mt-20 flex justify-between gap-3">
+    {/* Progress gradient for filled divisions */}
+    <div
+      className="absolute top-0 left-0 rounded-full h-2 bg-gradient-to-r from-yellow-200 to-yellow-700"
+      style={{ width: `${(levelIndex / 9) * 100}%` }} // Fill width based on level
+    ></div>
+  </div>
+</div>
+
+             
+            </div>
+          </div>
+
+          <div className="cpx-4 py-2 mt-5 flex justify-between gap-3">
             {[...Array(3)].map((_, index) => (
               <div key={index} className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <Link to="/News" className="text-center">
@@ -162,37 +193,27 @@ const Home = () => {
                     <img
                       src={newsIcon}
                       alt="News Icon"
-                      className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                        isActive("/News")
-                          ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                          : "brightness-100"
-                      }`}
+                      className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
                     />
                     <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-600"}`}>News</span>
                   </div>
                 </Link>
               </div>
             ))}
-
             <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
               <Link to="/Election" className="text-center">
                 <div className="relative">
                   <img
                     src={electionIcon}
                     alt="Election Icon"
-                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${
-                      isActive("/Election")
-                        ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15"
-                        : "brightness-100"
-                    }`}
+                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/Election") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
                   />
-                  <span className={`text-sm ${isActive("/Election") ? "text-yellow-500" : "text-gray-600"}`}>
-                    Election
-                  </span>
+                  <span className={`text-sm ${isActive("/Election") ? "text-yellow-500" : "text-gray-600"}`}>Election</span>
                 </div>
               </Link>
             </div>
           </div>
+
 
           {/* Coin Earn Section */}
           <div className="px-4 mt-3 flex justify-center">
