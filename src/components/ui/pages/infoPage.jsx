@@ -3,9 +3,9 @@ import Mainlayouts from "../../layouts/Mainlayouts";
 import BottomNavigation from "./BottomNavigation";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
-const info = () => {
+const infoPage = () => {
   return (
-    <div className="bg-blackex justify-center">
+    <div className="bg-black justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
           <div className="flex items-center space-x-2 pt-4">
@@ -27,4 +27,4 @@ const info = () => {
   );
 };
 
-export default info;
+export default infoPage;

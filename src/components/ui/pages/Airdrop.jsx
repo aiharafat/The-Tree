@@ -14,7 +14,7 @@ const Airdrop = () => {
   };
 
   return (
-    <animated.div style={pageTransition} className="bg-black flex justify-center">
+    <div style={pageTransition} className="bg-black flex justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
         
         {/* Header Section */}
@@ -53,7 +53,7 @@ const Airdrop = () => {
         {/* Bottom Navigation */}
         <BottomNavigation /> 
       </div>
-    </animated.div>
+    </div>
   );
 };
 

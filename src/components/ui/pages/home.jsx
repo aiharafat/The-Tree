@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
+import profileImg from "../../../../public/assets/profileimg.png";
 
 const Home = () => {
   const [tapped, setTapped] = useState(false); 
@@ -134,54 +135,51 @@ const Home = () => {
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
-        <div className="relative z-10 px-2">
-          <div className="flex items-center space-x-2 pt-0">
-            <div className="absolute top-0 right-[370px] mt-4 flex items-center px-2 text-white">  
-              <Link to="/info" className="text-center">
-                <div className="relative">
-                  <img
-                    src={infoIcon}
-                    alt="info Icon"
-                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/info") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
-                  />
-                </div>
-              </Link>
-            </div>
-            <div>
-              <p className="mt-4 px-6 text-xl">Arafat</p>
-            </div>
+       <div className="flex items-center space-x-2 ">
+          <div className="absolute top-0  mt-4 flex items-center justify between-gap-5 px-2 text-white">  
+          <Link to="/infoPage" className="text-center">
+                  <div className="relative">
+                    <img
+                      src={profileImg}
+                      alt="Profile Icon"
+                      className={`w-[30px] h-[30px] rounded-full p-[2px] bg-gradient-to-r from-yellow-100 to-yellow-600 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
+                    />
+                    <span className={`text-sm ${isActive("/infoPage") ? "text-purple-500" : "text-gray-600"}`}></span>
+                  </div>
+                </Link>
+           <span className="px-1">Arafat</span>
           </div>
-
+            
+        </div>
+        <div className="relative z-10 px-2">
           <div className="flex items-center mt-8 w-1/3">
             <div className="w-full ">
-              <div className="flex justify-between">
+              <div className="flex mt-10 justify-between">
                 <p className="text-sm">{levelNames[levelIndex]}</p>
                 <p className="text-sm">{levelIndex + 1} <span className="text-[#95908a]">/ {levelNames.length}</span></p>
               </div>
               <div className="relative flex items-center mt-1 border-2 border-[#43433b] rounded-full">
-  {/* Progress bar container */}
-  <div className="w-full h-2 bg-[#43433b]/[0.6] rounded-full relative">
-    {/* Dividers spaced across the full width of the progress bar */}
-    {[...Array(9)].map((_, index) => (
-      <div
-        key={index}
-        className={`absolute top-0 bottom-0 w-1/10 h-full ${index < levelIndex ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-[#43433b]/[0.6]'} rounded-full`}
-        style={{
-          left: `${index * 9}%`, // Space the segments evenly
-          width: '20%', // Each segment occupies 10% of the bar
-        }}
-      ></div>
-    ))}
+                 {/* Progress bar container */}
+                  <div className="w-full h-2 bg-[#43433b]/[0.6] rounded-full relative">
+                      {/* Dividers spaced across the full width of the progress bar */}
+                  {[...Array(9)].map((_, index) => (
+                  <div
+                  key={index}
+                   className={`absolute top-0 bottom-0 w-1/10 h-full ${index < levelIndex ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-[#43433b]/[0.6]'} rounded-full`}
+                  style={{
+                  left: `${index * 9}%`, // Space the segments evenly
+                  width: '20%', // Each segment occupies 10% of the bar
+                   }}
+                 ></div>
+                  ))}
 
-    {/* Progress gradient for filled divisions */}
-    <div
-      className="absolute top-0 left-0 rounded-full h-2 bg-gradient-to-r from-yellow-200 to-yellow-700"
-      style={{ width: `${(levelIndex / 9) * 100}%` }} // Fill width based on level
-    ></div>
-  </div>
-</div>
-
-             
+                   {/* Progress gradient for filled divisions */}
+                  <div
+                   className="absolute top-0 left-0 rounded-full h-2 bg-gradient-to-r from-yellow-200 to-yellow-700"
+                   style={{ width: `${(levelIndex / 9) * 100}%` }} // Fill width based on level
+                  ></div>
+                </div>
+              </div>
             </div>
           </div>
 

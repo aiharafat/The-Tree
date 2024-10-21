@@ -6,6 +6,7 @@ import ErrorElement from './components/ErrorElement'; // Import ErrorElement
 import Election from './components/ui/pages/Election';
 import News from './components/ui/pages/News';
 import Airdrop from './components/ui/pages/Airdrop';
+import infoPage from './components/ui/pages/infoPage';
 const MainRoutes = createBrowserRouter([
   {
     path: '/',
@@ -34,6 +35,10 @@ const MainRoutes = createBrowserRouter([
       {
         path: 'Airdrop',
         element: <Airdrop />
+      },
+      {
+        path: 'infoPage',
+        element: <infoPage />
       }
 
     ],
