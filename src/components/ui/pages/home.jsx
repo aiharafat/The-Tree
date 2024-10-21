@@ -9,6 +9,7 @@ import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
 import profileImg from "../../../../public/assets/profileimg.png";
+import infoPage from "./infoPage";
 
 const Home = () => {
   const [tapped, setTapped] = useState(false); 

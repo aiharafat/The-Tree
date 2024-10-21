@@ -1,26 +1,52 @@
 import React from "react";
-import Mainlayouts from "../../layouts/Mainlayouts";
+import { Link, Outlet } from "react-router-dom";  // Import Outlet for nested routing
+import youtubeIcon from "../../../../public/assets/YouTube.png";
 import BottomNavigation from "./BottomNavigation";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import websiteIcon from "../../../../public/assets/Website.png";
 
 const News = () => {
   return (
-    <div className="bg-blackex justify-center">
-      <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
+    <div className="bg-black justify-center">
+      <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
-          <div className="flex items-center space-x-2 pt-4">
-           
+          <div className="flex items-center mt-[30px] justify-center space-x-2 pt-4">
+            <h1 className="text-3xl">Latest News</h1>
           </div>
 
-          <div className="flex items-center justify-between space-x-10 mt-10">
-            <div className="flex items-center w-full h-full">
-              <div className="w-full px-20 py-40 text-xl ">
-                <span>This is the News page</span>
+          {/* YouTube News Button */}
+          <div className="flex items-center justify-between px-[50px] mt-[50px]">
+          <Link to="/News/YouTube" className="text-center">
+              <div className="relative bg-[#99bfb6] w-24 h-24 flex justify-center items-center rounded-full shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
+                <img
+                  src={youtubeIcon}
+                  alt="YouTube Icon"
+                  className="w-8 h-8 transition-transform duration-300"
+                />
               </div>
-            </div>
+              <span className="text-sm text-white mt-2 block">YouTube </span>
+            </Link>
+           
+            <Link to="/News/Website" className="text-center">
+              <div className="relative bg-[#99bfb6] w-24 h-24 flex justify-center items-center rounded-full shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
+                <img
+                  src={websiteIcon}
+                  alt="Website Icon"
+                  className="w-[60px] h-[60px] transition-transform duration-300"
+                />
+              </div>
+              <span className="text-sm text-white mt-2 block">Website </span>
+            </Link>
           </div>
 
-         
+          
+
+          {/* Outlet for Subpages */}
+          <div className="mt-6">
+            <Outlet />  {/* This will render nested routes like YouTubeNews here */}
+          </div>
+
+          {/* Bottom Navigation */}
+          <BottomNavigation />
         </div>
       </div>
     </div>

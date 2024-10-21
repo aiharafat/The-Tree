@@ -1,6 +1,5 @@
 import React from "react";
-import Mainlayouts from "../../layouts/Mainlayouts";
-import BottomNavigation from "./BottomNavigation";
+
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const infoPage = () => {
