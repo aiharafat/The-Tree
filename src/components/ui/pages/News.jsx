@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";  // Import Outlet for nested ro
 import BottomNavigation from "./BottomNavigation";
 
 
-const News = () => {s
+const News = () => {
   return (
     <div className="bg-black justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
