@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";  // Import Outlet for nested routing
-import youtubeIcon from "../../../../public/assets/YouTube.png";
-import BottomNavigation from "./BottomNavigation";
-import websiteIcon from "../../../../public/assets/Website.png";
 
-const News = () => {
+import BottomNavigation from "./BottomNavigation";
+
+
+const News = () => {s
   return (
     <div className="bg-black justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
