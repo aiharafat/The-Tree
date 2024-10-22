@@ -18,7 +18,7 @@ const News = () => {
   <Link to="/News/YouTube" className="text-center">
     <div className="relative bg-[#99bfb6] w-24 h-24 flex justify-center items-center rounded-full shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
       <img
-        src={youtubeIcon}
+        src="/assets/Youtube.png"
         alt="YouTube Icon"
         className="w-8 h-8 transition-transform duration-300"
       />
