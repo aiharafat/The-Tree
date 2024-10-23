@@ -137,7 +137,7 @@ const Home = () => {
     <div className="bg-black flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
        <div className="flex items-center space-x-2 ">
-          <div className="absolute top-0  mt-4 flex items-center justify between-gap-5 px-2 text-white">  
+          <div className="absolute top-0  mt-4 flex items-center  px-2 text-white">  
           <Link to="/infoPage" className="text-center">
                   <div className="relative">
                     <img
@@ -149,17 +149,15 @@ const Home = () => {
                   </div>
                 </Link>
            <span className="px-1">Arafat</span>
+          
           </div>
             
         </div>
         <div className="relative z-10 px-2">
           <div className="flex items-center mt-8 w-1/3">
             <div className="w-full ">
-              <div className="flex mt-10 justify-between">
-                <p className="text-sm">{levelNames[levelIndex]}</p>
-                <p className="text-sm">{levelIndex + 1} <span className="text-[#95908a]">/ {levelNames.length}</span></p>
-              </div>
-              <div className="relative flex items-center mt-1 border-2 border-[#43433b] rounded-full">
+             
+              <div className="relative flex items-center mt-6 border-2 border-[#43433b] rounded-full">
                  {/* Progress bar container */}
                   <div className="w-full h-2 bg-[#43433b]/[0.6] rounded-full relative">
                       {/* Dividers spaced across the full width of the progress bar */}
@@ -181,36 +179,27 @@ const Home = () => {
                   ></div>
                 </div>
               </div>
+              <div className="flex mt-0 justify-between">
+                <p className="text-sm">{levelNames[levelIndex]}</p>
+                <p className="text-sm">{levelIndex + 1} <span className="text-[#95908a]">/ {levelNames.length}</span></p>
+              </div>
             </div>
           </div>
 
-          <div className="cpx-4 py-2 mt-5 flex justify-between gap-3">
-            {[...Array(3)].map((_, index) => (
-              <div key={index} className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+        {/* array section of the news */}
+
+          <div className=" py-1 mt-5 flex justify-between gap-2"> 
+            {[...Array(2)].map((_, index) => (
+              <div key={index} className="bg-[#272a2f] rounded-lg px-3 py-8 w-full relative">
                 <Link to="/News" className="text-center">
                   <div className="relative">
-                    <img
-                      src={newsIcon}
-                      alt="News Icon"
-                      className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
-                    />
-                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-600"}`}>News</span>
+                    
+                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-100"}`}>Law enforcers stop protesters from breaking thru Bangabhaban barricade</span>
                   </div>
                 </Link>
               </div>
             ))}
-            <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-              <Link to="/Election" className="text-center">
-                <div className="relative">
-                  <img
-                    src={electionIcon}
-                    alt="Election Icon"
-                    className={`w-6 h-6 mx-auto transition-transform duration-300 ${isActive("/Election") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
-                  />
-                  <span className={`text-sm ${isActive("/Election") ? "text-yellow-500" : "text-gray-600"}`}>Election</span>
-                </div>
-              </Link>
-            </div>
+           
           </div>
 
 
@@ -222,12 +211,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Points Display */}
-          <div className="absolute top-0 right-[90px] mt-4 flex items-center px-2 text-white ">
-            <span>Total earn = </span>
-            <p className="text-xl text-white"> {1000 + coins}</p>
-            <img src={dollarCoin} className="w-[30px] h-[30px]" />
-          </div>
+          
+          
 
           {/* Tappable Button Section */}
           <div className="px-7 mt-5 flex justify-center">
@@ -288,7 +273,7 @@ const Home = () => {
           {/* Error message when energy is out */}
           {showMessage && (
             <div className="text-center mt-10 text-red-500 font-semibold">
-              Sorry, not enough energy or Boosts!
+              Sorry, not enough energy!
             </div>
           )}
 

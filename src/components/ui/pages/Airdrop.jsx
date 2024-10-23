@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useSpring, animated } from 'react-spring'; // Importing animation for the transition
-import usePageTransition from '../pages/usePageTransition';
+
 import Mainlayouts from "../../layouts/Mainlayouts";
 import BottomNavigation from "./BottomNavigation"; // Assuming this exists for navigation
 import { Link } from "react-router-dom";
 
 const Airdrop = () => {
   const [wallet, setWallet] = useState(''); // State for wallet input
-  const pageTransition = usePageTransition(); // Animation hook for page transition
+
 
   const handleAddWallet = () => {
     alert(`Wallet ${wallet} added successfully!`);
   };
 
   return (
-    <div style={pageTransition} className="bg-black flex justify-center">
+    <div  className="bg-black flex justify-center">
       <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
         
         {/* Header Section */}

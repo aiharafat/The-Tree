@@ -29,6 +29,7 @@ const MainRoutes = createBrowserRouter([
       { path: 'Election', element: <Election /> },
       { path: 'Airdrop', element: <Airdrop /> },
       { path: 'infoPage', element: <infoPage /> },
+      
     ],
   },
 ]);

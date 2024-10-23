@@ -13,7 +13,7 @@ const BottomNavigation = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#99bfb6] flex justify-around items-center z-50 h-16 shadow-lg border-t border-gray-200 rounded-t-3xl">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#99bfb6] p-[5px] flex justify-around items-center z-50 h-[60px] shadow-lg border-t border-gray-200 rounded-3xl">
       <div className="flex w-full justify-around items-center space-x-4">
         
         {/* Home Button */}
