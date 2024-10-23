@@ -17,15 +17,15 @@ const WebsiteNews = () => {
   ];
 
   return (
-    <div className="grid  grid-cols-2 gap-6">
+    <div className="grid  grid-cols-2 gap-3">
       {websiteNews.map((news, index) => (
-        <div key={index} className="flex flex-col items-center space-y-4 bg-gray-800 p-4 mt-10 rounded-lg">
+        <div key={index} className="flex flex-col items-center  space-y-3 bg-gray-800 p-1  mt-10 rounded-lg">
          
           <a
             href={news.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-lg text-blue-400 text-center hover:underline"
+            className="text-sm text-blue-400 text-center hover:underline"
           >
             {news.title}
           </a>
