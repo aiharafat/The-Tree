@@ -15,7 +15,7 @@ const Airdrop = () => {
 
   return (
     <div  className="bg-black flex justify-center">
-      <div className="w-full bg-[#7a7474] text-white h-screen font-bold flex flex-col max-w-xl">
+      <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         
         {/* Header Section */}
         <div className="px-4 z-0">

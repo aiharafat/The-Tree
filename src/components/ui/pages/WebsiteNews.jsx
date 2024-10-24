@@ -20,7 +20,6 @@ const WebsiteNews = () => {
     <div className="grid  grid-cols-2 gap-3">
       {websiteNews.map((news, index) => (
         <div key={index} className="flex flex-col items-center  space-y-3 bg-gray-800 p-1  mt-10 rounded-lg">
-         
           <a
             href={news.link}
             target="_blank"

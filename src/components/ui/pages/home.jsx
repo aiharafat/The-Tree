@@ -188,13 +188,13 @@ const Home = () => {
 
         {/* array section of the news */}
 
-          <div className=" py-1 mt-5 flex justify-between gap-2"> 
+          <div className=" py-2 mt-5 flex justify-between gap-2"> 
             {[...Array(2)].map((_, index) => (
               <div key={index} className="bg-[#272a2f] rounded-lg px-3 py-8 w-full relative">
                 <Link to="/News" className="text-center">
                   <div className="relative">
                     
-                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-100"}`}>Law enforcers stop protesters from breaking thru Bangabhaban barricade</span>
+                    <span className={`text-sm ${isActive("/News") ? "text-purple-500" : "text-gray-600"}`}>Law enforcers stop protesters from breaking thru Bangabhaban barricade</span>
                   </div>
                 </Link>
               </div>
@@ -211,8 +211,12 @@ const Home = () => {
             </div>
           </div>
 
-          
-          
+          {/* Points Display */}
+          <div className="absolute top-0 right-[150px] mt-4 flex items-center text-white ">
+           
+            <p className="text-xl text-white"> {1000 + coins}</p>
+            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+          </div>
 
           {/* Tappable Button Section */}
           <div className="px-7 mt-5 flex justify-center">

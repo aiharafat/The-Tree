@@ -24,7 +24,7 @@ const Family = () => {
 
   return (
     <div className="bg-white flex justify-center">
-      <div className="w-full bg-[#7a7474] text-black h-screen font-bold flex flex-col max-w-xl">
+      <div className="w-full bg-[#1f2f40] text-black h-screen font-bold flex flex-col max-w-xl">
         <div className="px-10 z-0">
           {/* Heading */}
           <div className="text-center text-xl mt-10">
