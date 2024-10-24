@@ -212,10 +212,10 @@ const Home = () => {
           </div>
 
           {/* Points Display */}
-          <div className="absolute top-0 right-[150px] mt-4 flex items-center text-white ">
-           
+          <div className="absolute top-0 right-[160px] mt-4 flex items-center text-white ">
+           <img src={dollarCoin} className="w-[30px] h-[30px]" />
             <p className="text-xl text-white"> {1000 + coins}</p>
-            <img src={dollarCoin} className="w-[30px] h-[30px]" />
+            
           </div>
 
           {/* Tappable Button Section */}
