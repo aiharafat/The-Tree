@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import BottomNavigation from "./BottomNavigation"; 
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
@@ -10,6 +10,7 @@ import electionIcon from "../../../../public/assets/Election.png";
 import infoIcon from "../../../../public/assets/infoo.png";
 import profileImg from "../../../../public/assets/profileimg.png";
 import infoPage from "./infoPage";
+import { EnergyProvider } from "./EnergyContext";
 
 const Home = () => {
   const [tapped, setTapped] = useState(false); 
@@ -134,7 +135,8 @@ const Home = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="bg-black flex justify-center">
+    <EnergyProvider>
+    <div className="bg-black full-screen-adjust flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
        <div className="flex items-center space-x-2 ">
           <div className="absolute top-0  mt-4 flex items-center  px-2 text-white">  
@@ -190,7 +192,7 @@ const Home = () => {
 
           <div className=" py-2 mt-5 flex justify-between gap-2"> 
             {[...Array(2)].map((_, index) => (
-              <div key={index} className="bg-[#272a2f] rounded-lg px-3 py-8 w-full relative">
+              <div key={index} className="bg-[#272a2f] rounded-lg px-3 py-4 w-full relative">
                 <Link to="/News" className="text-center">
                   <div className="relative">
                     
@@ -223,7 +225,7 @@ const Home = () => {
             <animated.button
               style={buttonAnimation}
               onTouchStart={handleTap}
-              className={`w-[330px] h-[330px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out ${
+              className={`w-[330px] h-[320px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out ${
                 energy > 0 ? "hover:scale-90 active:scale-75" : "cursor-not-allowed"
               }`}
               disabled={energy <= 0}
@@ -286,6 +288,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </EnergyProvider>
   );
 };
 

@@ -2,41 +2,43 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";  // Import Outlet for nested routing
 
 import BottomNavigation from "./BottomNavigation";
+import { EnergyProvider } from "./EnergyContext";
 
 
 const News = () => {
   return (
-    <div className="bg-black justify-center">
+    <EnergyProvider>
+    <div className="bg-black full-screen-adjust justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
-          <div className="flex items-center mt-[30px] justify-center space-x-2 pt-4">
+          <div className="flex items-center mt-[6px] justify-center  pt-4">
             <h1 className="text-3xl">Latest News</h1>
           </div>
 
+          <div className="flex justify-between gap-3 bg-[#99bfb6] opacity-85 rounded-lg w-full h-[50px] mt-10">
           {/* YouTube News Button */}
-          <div className="flex items-center justify-between px-[50px] mt-[50px]">
-  <Link to="/News/YouTube" className="text-center">
-    <div className="relative bg-[#99bfb6] w-24 h-24 flex justify-center items-center rounded-full shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
-      <img
-        src="/assets/Youtube.png"
-        alt="YouTube Icon"
-        className="w-8 h-8 transition-transform duration-300"
-      />
-    </div>
-    <span className="text-sm text-white mt-2 block">YouTube </span>
-  </Link>
+          <div className="flex items-center  justify-between gap-8 px-3">
+            <Link to="/News/national" className="text-center">
+             <div className="flex bg-[#99bfb6] w-full flex justify-between gap-3 shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
+               
+              </div>
+              <span className="text-xl text-white mt-0block">National </span>
+            </Link>
   
-  <Link to="/News/Website" className="text-center">
-    <div className="relative bg-[#99bfb6] w-24 h-24 flex justify-center items-center rounded-full shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
-      <img
-        src="/assets/Website.png"
-        alt="Website Icon"
-        className="w-[60px] h-[60px] transition-transform duration-300"
-      />
-    </div>
-    <span className="text-sm text-white mt-2 block">Website</span>
-  </Link>
-</div>
+            <Link to="/News/Website" className="text-center">
+              <div className="bg-[#99bfb6] w-full h-full flex justify-center items-center shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
+               
+             </div>
+              <span className="text-xl text-white  block">International</span>
+           </Link>
+           <Link to="/News/YouTube" className="text-center">
+             <div className="flex bg-[#99bfb6] w-full flex justify-between gap-3 shadow-lg hover:bg-[#7fa49d] transition-transform duration-300 transform hover:scale-110">
+               
+              </div>
+              <span className="text-xl text-white mt-0block">Crypto </span>
+            </Link>
+           </div>
+          </div>
 
 
           
@@ -51,6 +53,7 @@ const News = () => {
         </div>
       </div>
     </div>
+    </EnergyProvider>
   );
 };
 

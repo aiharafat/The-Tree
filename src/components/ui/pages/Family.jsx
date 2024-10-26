@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { EnergyProvider } from "./EnergyContext";
 
 const Family = () => {
   const [referralLink, setReferralLink] = useState("");
@@ -23,7 +24,8 @@ const Family = () => {
   };
 
   return (
-    <div className="bg-white flex justify-center">
+    <EnergyProvider>
+    <div className="bg-white full-screen-adjust flex justify-center">
       <div className="w-full bg-[#1f2f40] text-black h-screen font-bold flex flex-col max-w-xl">
         <div className="px-10 z-0">
           {/* Heading */}
@@ -64,6 +66,7 @@ const Family = () => {
         </div>
       </div>
     </div>
+    </EnergyProvider>
   );
 };
 

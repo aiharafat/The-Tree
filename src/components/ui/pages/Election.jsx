@@ -2,10 +2,12 @@ import React from "react";
 import Mainlayouts from "../../layouts/Mainlayouts";
 import BottomNavigation from "./BottomNavigation";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { EnergyProvider } from "./EnergyContext";
 
 const Election = () => {
   return (
-    <div className="bg-black flex justify-center">
+    <EnergyProvider>
+    <div className="bg-black full-screen-adjust flex justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
           <div className="flex items-center space-x-2 pt-4">
@@ -24,6 +26,7 @@ const Election = () => {
         </div>
       </div>
     </div>
+    </EnergyProvider>
   );
 };
 
