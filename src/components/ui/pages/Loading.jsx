@@ -11,7 +11,7 @@ const Loading = ({ onLoad }) => {
   return (
     <div className="loading-container">
       <img src={logoIcon} alt="Logo" className="loading-logo" />
-      <p>Loading...</p>
+      <span className="text-3xl">Loading...</span>
     </div>
   );
 };

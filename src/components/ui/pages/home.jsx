@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import BottomNavigation from "./BottomNavigation";
+import BottomNavigation from "./BottomNavigation"; 
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import energyIcon from "../../../../public/assets/energy.png";
@@ -26,7 +26,7 @@ const Home = () => {
   const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3);
   const [boostTimer, setBoostTimer] = useState(0);
   const levelNames = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Epic", "Legendary", "Master", "GrandMaster", "Lord"];
-  const levelMinPoints = [0, 250, 1000, 2000, 4000, 10000, 50000, 100000, 1000000];
+  const levelMinPoints = [0, 250, 1000, 2000, 4000, 10000, 50000, 10000, 100000, 1000000];
   const [levelIndex, setLevelIndex] = useState(0);
 
   const calculateProgress = () => {
@@ -59,6 +59,11 @@ const Home = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 3000); // Show loading for 3 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleTap = (e) => {
     if (energy <= 10) {
       setShowMessage(true);
@@ -87,7 +92,7 @@ const Home = () => {
       setBoostActive(true);
       setBoostCount((prevCount) => prevCount - 1);
       setBoostTimer(30);
-
+      
       const boostInterval = setInterval(() => {
         setBoostTimer((prevTime) => {
           if (prevTime <= 1) {
@@ -114,9 +119,10 @@ const Home = () => {
     transform: tapped ? "scale(1.2)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
-
   const isActive = (path) => location.pathname === path;
-
+  if (isLoading) {
+    return <Loading />;
+  }
   
 
 
