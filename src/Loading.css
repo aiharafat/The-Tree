@@ -1,0 +1,28 @@
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1f2f40; /* Or any background color you prefer */
+    color: #0d0c0c;
+    font-size: 1.5em;
+  }
+  
+  .loading-logo {
+    width: 100px;
+    height: 100px;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

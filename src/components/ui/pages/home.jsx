@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import BottomNavigation from "./BottomNavigation"; 
+import BottomNavigation from "./BottomNavigation";
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import energyIcon from "../../../../public/assets/energy.png";
@@ -11,8 +11,11 @@ import infoIcon from "../../../../public/assets/infoo.png";
 import profileImg from "../../../../public/assets/profileimg.png";
 import infoPage from "./infoPage";
 import { EnergyProvider } from "./EnergyContext";
+import logoIcon from "../../../../public/assets/Logo.png";
+import Loading from "./Loading";
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [tapped, setTapped] = useState(false); 
   const location = useLocation();
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
@@ -22,28 +25,9 @@ const Home = () => {
   const [boostActive, setBoostActive] = useState(false);
   const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3);
   const [boostTimer, setBoostTimer] = useState(0);
-  const levelNames = [ "Bronze",    // From 0 to 4999 coins
-    "Silver",    // From 5000 coins to 24,999 coins
-    "Gold",      // From 25,000 coins to 99,999 coins
-    "Platinum",  // From 100,000 coins to 999,999 coins
-    "Diamond",   // From 1,000,000 coins to 2,000,000 coins
-    "Epic",      // From 2,000,000 coins to 10,000,000 coins
-    "Legendary", // From 10,000,000 coins to 50,000,000 coins
-    "Master",    // From 50,000,000 coins to 100,000,000 coins
-    "GrandMaster", // From 100,000,000 coins to 1,000,000,000 coins
-    "Lord"     ]; // Your existing level names
-  const levelMinPoints = [ 0,        // Bronze
-    250,     // Silver
-    1000,    // Gold
-    2000,   // Platinum
-    4000,  // Diamond
-    10000,  // Epic
-    50000, // Legendary
-    10000, // Master
-    100000,// GrandMaster
-    1000000// Lord // Your existing level min points
-  ];
-  const [levelIndex, setLevelIndex] = useState(0); // Starting level index
+  const levelNames = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Epic", "Legendary", "Master", "GrandMaster", "Lord"];
+  const levelMinPoints = [0, 250, 1000, 2000, 4000, 10000, 50000, 100000, 1000000];
+  const [levelIndex, setLevelIndex] = useState(0);
 
   const calculateProgress = () => {
     if (levelIndex >= levelNames.length - 1) return 100;
@@ -51,7 +35,6 @@ const Home = () => {
     const nextLevelMin = levelMinPoints[levelIndex + 1];
     return Math.min(((coins - currentLevelMin) / (nextLevelMin - currentLevelMin)) * 100, 100);
   };
-  
 
   useEffect(() => {
     if (coins >= levelMinPoints[levelIndex + 1] && levelIndex < levelNames.length - 1) {
@@ -104,7 +87,7 @@ const Home = () => {
       setBoostActive(true);
       setBoostCount((prevCount) => prevCount - 1);
       setBoostTimer(30);
-      
+
       const boostInterval = setInterval(() => {
         setBoostTimer((prevTime) => {
           if (prevTime <= 1) {
@@ -133,6 +116,9 @@ const Home = () => {
   });
 
   const isActive = (path) => location.pathname === path;
+
+  
+
 
   return (
     <EnergyProvider>
@@ -231,7 +217,7 @@ const Home = () => {
               disabled={energy <= 0}
             >
               <div className="w-full h-full rounded-full bg-[#0e1c17] flex justify-center brightness-1 items-center">
-                <img src={dollarCoin} className="w-full h-full" />
+                <img src={logoIcon} className="w-full h-full" />
               </div>
             </animated.button>
           </div>

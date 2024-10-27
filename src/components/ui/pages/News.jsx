@@ -11,7 +11,7 @@ const News = () => {
     <div className="bg-black full-screen-adjust justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
-          <div className="flex items-center mt-[6px] justify-center  pt-4">
+          <div className="flex items-center mt-[6px] justify-center  pt-4"> 
             <h1 className="text-3xl">Latest News</h1>
           </div>
 
