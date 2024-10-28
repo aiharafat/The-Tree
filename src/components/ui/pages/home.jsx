@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import BottomNavigation from "./BottomNavigation"; 
+import BottomNavigation from "./BottomNavigation";
 import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import energyIcon from "../../../../public/assets/energy.png";
@@ -15,7 +15,7 @@ import logoIcon from "../../../../public/assets/Logo.png";
 import Loading from "./Loading";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!sessionStorage.getItem("hasLoadedBefore"));
   const [tapped, setTapped] = useState(false); 
   const location = useLocation();
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
@@ -25,9 +25,21 @@ const Home = () => {
   const [boostActive, setBoostActive] = useState(false);
   const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3);
   const [boostTimer, setBoostTimer] = useState(0);
-  const levelNames = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Epic", "Legendary", "Master", "GrandMaster", "Lord"];
-  const levelMinPoints = [0, 250, 1000, 2000, 4000, 10000, 50000, 10000, 100000, 1000000];
-  const [levelIndex, setLevelIndex] = useState(0);
+  const levelNames = [ "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Epic", "Legendary", "Master", "GrandMaster", "Lord"];
+  const levelMinPoints = [ 0, 250, 1000, 2000, 4000, 10000, 50000, 10000, 100000, 1000000];
+  const [levelIndex, setLevelIndex] = useState(0); 
+
+  // Adjust viewport height for Telegram
+  const adjustViewportHeight = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  };
+
+  useEffect(() => {
+    adjustViewportHeight();
+    window.addEventListener("resize", adjustViewportHeight);
+    return () => window.removeEventListener("resize", adjustViewportHeight);
+  }, []);
 
   const calculateProgress = () => {
     if (levelIndex >= levelNames.length - 1) return 100;
@@ -59,11 +71,6 @@ const Home = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000); // Show loading for 3 seconds
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleTap = (e) => {
     if (energy <= 10) {
       setShowMessage(true);
@@ -92,7 +99,7 @@ const Home = () => {
       setBoostActive(true);
       setBoostCount((prevCount) => prevCount - 1);
       setBoostTimer(30);
-      
+
       const boostInterval = setInterval(() => {
         setBoostTimer((prevTime) => {
           if (prevTime <= 1) {
@@ -119,11 +126,20 @@ const Home = () => {
     transform: tapped ? "scale(1.2)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
+
+  useEffect(() => {
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        sessionStorage.setItem("hasLoadedBefore", "true");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+
   const isActive = (path) => location.pathname === path;
-  if (isLoading) {
-    return <Loading />;
-  }
-  
+
+  if (isLoading) return <Loading />;
 
 
   return (
@@ -217,7 +233,7 @@ const Home = () => {
             <animated.button
               style={buttonAnimation}
               onTouchStart={handleTap}
-              className={`w-[330px] h-[320px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out ${
+              className={`w-[280px] h-[280px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out ${
                 energy > 0 ? "hover:scale-90 active:scale-75" : "cursor-not-allowed"
               }`}
               disabled={energy <= 0}

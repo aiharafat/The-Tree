@@ -46,15 +46,18 @@ button:hover {
   background-color: #45a049;
 }
 
-/* Adjusted full-height class for Telegram */
+/* Dynamic height adjustment for Telegram viewport */
+:root {
+  --vh: 100vh;
+}
+
 .full-screen-adjust {
-  height: calc(100vh - 15%); /* Adjusting to fit Telegram's title bar */
+  height: calc(var(--vh, 1vh) * 100); /* Use --vh to fit within the Telegram view */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 
 footer {
   background-color: #4CAF50;
@@ -79,6 +82,6 @@ footer a:hover {
 /* Media query to further refine for smaller screens */
 @media (max-width: 768px) {
   .full-screen-adjust {
-      height: calc(100vh - 10%); /* Adjusted further for smaller screens */
+      height: calc(var(--vh, 1vh) * 100); /* Ensures --vh is used even on smaller screens */
   }
 }
