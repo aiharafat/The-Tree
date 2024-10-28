@@ -8,11 +8,69 @@ const YouTubeNews = () => {
       link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
       thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
     },
+    
     {
       title: "TON News ",
       link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
       thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
     },
+    {
+      title: "Bitcoin News",
+      link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
+      thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
+    },
+    
+    {
+      title: "TON News ",
+      link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
+      thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
+    },
+    {
+      title: "Bitcoin News",
+      link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
+      thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
+    },
+    
+    {
+      title: "TON News ",
+      link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
+      thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
+    },
+   
+    {
+      title: "Bitcoin News",
+      link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
+      thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
+    },
+    
+    {
+      title: "TON News ",
+      link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
+      thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
+    },
+    {
+      title: "Bitcoin News",
+      link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
+      thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
+    },
+    
+    {
+      title: "TON News ",
+      link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
+      thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
+    },
+    {
+      title: "Bitcoin News",
+      link: "https://youtu.be/rUOF0-WhdkM?si=lSDMT2yudY5PZKsK",
+      thumbnail: "https://i.postimg.cc/pdK7WzBg/image.png", // Correct thumbnail link
+    },
+    
+    {
+      title: "TON News ",
+      link: "https://youtu.be/t2OyNq2hLyM?si=0HfvsL5vRScmm097",
+      thumbnail: "https://i.postimg.cc/Kj9DLz7j/image.png", // Placeholder for second news
+    },
+    
   ];
 
   return (

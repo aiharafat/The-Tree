@@ -9,7 +9,7 @@ import YouTubeNews from './components/ui/pages/YouTubeNews';
 import Airdrop from './components/ui/pages/Airdrop';
 import infoPage from './components/ui/pages/infoPage';
 import WebsiteNews from './components/ui/pages/WebsiteNews';
-import national from './components/ui/pages/national';
+import National from './components/ui/pages/national';  // Fix the import to uppercase
 
 const MainRoutes = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ const MainRoutes = createBrowserRouter([
         children: [
           { path: 'YouTube', element: <YouTubeNews /> },
           { path: 'Website', element: <WebsiteNews /> },
-          { path: 'national', element: <national /> },
+          { path: 'national', element: <National /> },           // Fix the route for National
         ]
       },
       { path: 'Election', element: <Election /> },

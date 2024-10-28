@@ -34,6 +34,27 @@ const WebsiteNews = () => {
       link: "https://website-link2.com",
       thumbnail: "https://via.placeholder.com/150",
     },
+   
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
     {
       title: "Website Blog 2",
       link: "https://website-link2.com",
