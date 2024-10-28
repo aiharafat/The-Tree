@@ -84,6 +84,6 @@ footer a:hover {
   .full-screen-adjust {
       height: calc(var(--vh, 1vh) * 100);
       overflow: hidden;
-      padding-bottom: 80px; /* Ensures --vh is used even on smaller screens */
+      /* Ensures --vh is used even on smaller screens */
   }
 }

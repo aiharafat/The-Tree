@@ -8,7 +8,7 @@ import { EnergyProvider } from "./EnergyContext";
 const News = () => {
   return (
     <EnergyProvider>
-    <div className="bg-black full-screen-adjust justify-center">
+    <div className="bg-[#1f2f40] pb-[100px]  justify-center">
       <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
         <div className="px-4 z-0">
           <div className="flex items-center mt-[6px] justify-center  pt-4"> 

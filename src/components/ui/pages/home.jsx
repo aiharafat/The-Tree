@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import BottomNavigation from "./BottomNavigation";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
-import energyIcon from "../../../../public/assets/energy.png";
+import settingsIcon from "../../../../public/assets/settingss.png";
 import { Link, useLocation } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import electionIcon from "../../../../public/assets/Election.png";
-import infoIcon from "../../../../public/assets/infoo.png";
+import energyIcon from "../../../../public/assets/energy.png";
 import profileImg from "../../../../public/assets/profileimg.png";
 import infoPage from "./infoPage";
 import { EnergyProvider } from "./EnergyContext";
@@ -159,7 +159,14 @@ const Home = () => {
                   </div>
                 </Link>
            <span className="px-1">Arafat</span>
+           
           
+          </div>
+           {/* settings icon */}
+           <div className="absolute top-0 right-[20px] mt-4 flex items-center text-white ">
+           <img src={settingsIcon} className="w-[40px] h-[40px]" />
+            
+            
           </div>
             
         </div>
