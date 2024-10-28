@@ -5,8 +5,38 @@ const WebsiteNews = () => {
   // Website-specific news articles
   const websiteNews = [
     {
-      title: "Law enforcers stop protesters from breaking thru Bangabhaban barricade",
+      title: "",
       link: "https://website-link1.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 3",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
+      thumbnail: "https://via.placeholder.com/150",
+    },
+    {
+      title: "Website Blog 2",
+      link: "https://website-link2.com",
       thumbnail: "https://via.placeholder.com/150",
     },
     {
@@ -19,7 +49,7 @@ const WebsiteNews = () => {
   return (
     <div className="grid  grid-cols-2 gap-3">
       {websiteNews.map((news, index) => (
-        <div key={index} className="flex flex-col items-center  space-y-3 bg-gray-800 p-1  mt-10 rounded-lg">
+        <div key={index} className="flex flex-col items-center  space-y-3 bg-gray-800 p-1 h-[120px]  mt-10 rounded-lg">
           <a
             href={news.link}
             target="_blank"

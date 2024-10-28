@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import BottomNavigation from "./BottomNavigation";
-import mainCharacter from "../../../../public/assets/Maincharacterr.png";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import energyIcon from "../../../../public/assets/energy.png";
 import { Link, useLocation } from "react-router-dom";
