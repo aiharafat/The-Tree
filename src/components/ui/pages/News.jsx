@@ -4,7 +4,7 @@ import BottomNavigation from "./BottomNavigation";
 import { EnergyProvider } from "./EnergyContext";
 
 // Importing the subpage components
-import National from "./National";
+import National from "./national";
 import WebsiteNews from "./WebsiteNews";
 import YouTubeNews from "./YouTubeNews";
 
