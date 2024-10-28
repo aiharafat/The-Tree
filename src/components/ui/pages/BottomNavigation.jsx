@@ -102,7 +102,7 @@ const BottomNavigation = () => {
                 isActive("/Election") ? "text-yellow-500" : "text-gray-600"
               }`}
             >
-              Election
+              Task
             </span>
             <span className="absolute top-0 right-0 inline-flex h-2 w-2 rounded-full bg-red-500"></span>
           </div>

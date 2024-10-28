@@ -114,6 +114,11 @@ const Home = () => {
     }
   };
 
+  const handleCardClick = () => {
+    console.log("Tappable area clicked!");
+    
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setEnergy((prevEnergy) => (prevEnergy < 1000 ? prevEnergy + 1 : 1000));
@@ -122,7 +127,7 @@ const Home = () => {
   }, []);
 
   const buttonAnimation = useSpring({
-    transform: tapped ? "scale(1.2)" : "scale(1)",
+    transform: tapped ? "scale(1.5)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
 
@@ -143,7 +148,7 @@ const Home = () => {
 
   return (
     <EnergyProvider>
-  <div className="full-screen-adjust " onTouchStart={handleTap}>
+  <div className="full-screen-adjust " >
     <div className="bg-black  flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
        <div className="flex items-center space-x-2 ">
@@ -240,6 +245,7 @@ const Home = () => {
             <animated.button
               style={buttonAnimation}
               onTouchStart={handleTap}
+              onClick={handleCardClick}
               className={`w-[280px] h-[280px] px-3 p-4 rounded-full bg-[#272a2f] flex justify-center items-center cursor-pointer transform transition duration-200 ease-in-out ${
                 energy > 0 ? "hover:scale-90 active:scale-75" : "cursor-not-allowed"
               }`}
