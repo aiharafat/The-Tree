@@ -144,7 +144,8 @@ const Home = () => {
 
   return (
     <EnergyProvider>
-    <div className="bg-black full-screen-adjust flex justify-center">
+  <div className="full-screen-adjust " onTouchStart={handleTap}>
+    <div className="bg-black  flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
        <div className="flex items-center space-x-2 ">
           <div className="absolute top-0  mt-4 flex items-center  px-2 text-white">  
@@ -198,7 +199,7 @@ const Home = () => {
 
         {/* array section of the news */}
 
-          <div className=" py-2 mt-5 flex justify-between gap-2"> 
+          <div className=" py-2 mt-3 flex justify-between gap-2"> 
             {[...Array(2)].map((_, index) => (
               <div key={index} className="bg-[#272a2f] rounded-lg px-3 py-4 w-full relative">
                 <Link to="/News" className="text-center">
@@ -214,10 +215,10 @@ const Home = () => {
 
 
           {/* Coin Earn Section */}
-          <div className="px-4 mt-3 flex justify-center">
+          <div className="px-4 mt-1 flex justify-center">
             <div className="px-2  mt-0 flex items-center space-x-0">
-              <img src={dollarCoin} className="w-[50px] h-[50px] py-0" />
-              <p className="text-4xl mt-0 text-white">{1000 + coins}</p>
+              <img src={dollarCoin} className="w-[40px] h-[40px] py-0" />
+              <p className="text-3xl mt-0 text-white">{1000 + coins}</p>
             </div>
           </div>
 
@@ -229,7 +230,7 @@ const Home = () => {
           </div>
 
           {/* Tappable Button Section */}
-          <div className="px-7 mt-5 flex justify-center">
+          <div className="px-7 mt-3 flex justify-center">
             <animated.button
               style={buttonAnimation}
               onTouchStart={handleTap}
@@ -295,6 +296,7 @@ const Home = () => {
           <BottomNavigation />
         </div>
       </div>
+    </div>
     </div>
     </EnergyProvider>
   );

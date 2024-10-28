@@ -82,6 +82,7 @@ footer a:hover {
 /* Media query to further refine for smaller screens */
 @media (max-width: 768px) {
   .full-screen-adjust {
-      height: calc(var(--vh, 1vh) * 100); /* Ensures --vh is used even on smaller screens */
+      height: calc(var(--vh, 1vh) * 100);
+      overflow: hidden; /* Ensures --vh is used even on smaller screens */
   }
 }
