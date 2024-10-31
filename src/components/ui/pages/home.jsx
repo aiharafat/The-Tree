@@ -127,7 +127,7 @@ const Home = () => {
   }, []);
 
   const buttonAnimation = useSpring({
-    transform: tapped ? "scale(1.5)" : "scale(1)",
+    transform: tapped ? "scale(1.3)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
 
