@@ -9,7 +9,7 @@ const Election = () => {
   const [activeTab, setActiveTab] = useState("task");
   
   const tasks = [
-    { name: "Subscribe to the Telegram channel", link: "/subscribe-telegram", points: "+15" },
+    { name: "Subscribe to the Telegram channel", link: "https://t.me/+A0HeCmbeScFjZjJl", points: "+15" },
     { name: "Boost us", link: "/boost-blum", points: "+2" },
     { name: "Join our Instagram", link: "/join-instagram", points: "+5" },
     { name: "Follow Tomato on X", link: "/follow-x", points: "+5" },

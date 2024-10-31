@@ -25,71 +25,54 @@ const News = () => {
   return (
     <EnergyProvider>
       <div className="bg-[#1f2f40] min-h-screen pb-[100px] flex justify-center">
-        <div className="w-full bg-[#1f2f40] text-white font-bold flex flex-col max-w-xl">
+        <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
           <div className="px-3 z-0">
             <div className="flex items-center mt-[6px] justify-center pt-4">
               <h1 className="text-3xl">Latest News</h1>
             </div>
 
-            <div className="flex justify-between gap-3 bg-[#99bfb6] opacity-85 rounded-lg w-full h-[50px] mt-10">
-              <div className="flex items-center justify-between gap-8 px-3">
-                {/* National Link */}
-                <Link
-                  to="/News/national"
-                  onClick={() => handleCategoryChange("national")} // Update state on click
-                  className="text-center"
+            <div className="flex justify-center bg-[#99bfb6] rounded-2xl mt-8 w-full h-[60px]">
+              {/* National Link */}
+              <Link
+                to="/News/national"
+                onClick={() => handleCategoryChange("national")} // Update state on click
+                className="w-1/3 h-full flex items-center justify-center rounded-2xl"
+              >
+                <div
+                  className={`w-full h-full flex items-center justify-center rounded-2xl
+                    ${isActive("/News/national") ? "bg-blue-300" : "bg-transparent"}`}
                 >
-                  <div
-                    className={`flex justify-center items-center w-full h-full shadow-lg rounded-lg px-3 py-2 transition-all duration-300 transform 
-                    ${isActive("/News/national") ? "bg-[#7fa49d] scale-105" : "hover:bg-[#7fa49d] hover:scale-105"}`}>
-                    <span
-                      className={`text-md text-white transition-transform duration-300 ${
-                        isActive("/News/national") ? "transform scale-125 brightness-150" : ""
-                      }`}
-                    >
-                      National
-                    </span>
-                  </div>
-                </Link>
+                  <span className="text-md text-white">National</span>
+                </div>
+              </Link>
 
-                {/* International Link */}
-                <Link
-                  to="/News/Website"
-                  onClick={() => handleCategoryChange("international")}
-                  className="text-center"
+              {/* International Link */}
+              <Link
+                to="/News/Website"
+                onClick={() => handleCategoryChange("international")}
+                className="w-1/3 h-full flex items-center justify-center rounded-2xl"
+              >
+                <div
+                  className={`w-full h-full flex items-center justify-center rounded-2xl
+                    ${isActive("/News/Website") ? "bg-blue-300" : "bg-transparent"}`}
                 >
-                  <div
-                    className={`flex justify-center items-center w-full h-full shadow-lg rounded-lg px-3 py-2 transition-all duration-300 transform 
-                    ${isActive("/News/Website") ? "bg-[#7fa49d] scale-105" : "hover:bg-[#7fa49d] hover:scale-105"}`}>
-                    <span
-                      className={`text-md text-white transition-transform duration-300 ${
-                        isActive("/News/Website") ? "transform scale-125 brightness-150" : ""
-                      }`}
-                    >
-                      International
-                    </span>
-                  </div>
-                </Link>
+                  <span className="text-lg text-grey">International</span>
+                </div>
+              </Link>
 
-                {/* Crypto Link */}
-                <Link
-                  to="/News/YouTube"
-                  onClick={() => handleCategoryChange("crypto")}
-                  className="text-center"
+              {/* Crypto Link */}
+              <Link
+                to="/News/YouTube"
+                onClick={() => handleCategoryChange("crypto")}
+                className="w-1/3 h-full flex items-center justify-center rounded-2xl"
+              >
+                <div
+                  className={`w-full h-full flex items-center justify-center rounded-2xl
+                    ${isActive("/News/YouTube") ? "bg-blue-300" : "bg-transparent"}`}
                 >
-                  <div
-                    className={`flex justify-center items-center w-full h-full shadow-lg rounded-lg px-3 py-2 transition-all duration-300 transform 
-                    ${isActive("/News/YouTube") ? "bg-[#7fa49d] scale-105" : "hover:bg-[#7fa49d] hover:scale-105"}`}>
-                    <span
-                      className={`text-md text-white transition-transform duration-300 ${
-                        isActive("/News/YouTube") ? "transform scale-125 brightness-150" : ""
-                      }`}
-                    >
-                      Crypto
-                    </span>
-                  </div>
-                </Link>
-              </div>
+                  <span className="text-lg text-grey-500">Crypto</span>
+                </div>
+              </Link>
             </div>
 
             {/* Conditionally Render News Based on Selected Category */}

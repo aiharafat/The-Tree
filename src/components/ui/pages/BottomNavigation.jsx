@@ -57,8 +57,6 @@ const BottomNavigation = () => {
             >
               Family
             </span>
-            {/* Notification Dot */}
-            
           </div>
         </Link>
 

@@ -4,7 +4,7 @@ import "../../../Loading.css"; // Separate CSS file for animations
 import logoIcon from "../../../../public/assets/Logo.png";
 const Loading = ({ onLoad }) => {
   useEffect(() => {
-    const timer = setTimeout(onLoad, 3000); // Adjust the duration as needed
+    const timer = setTimeout(onLoad, 10000); // Adjust the duration as needed
     return () => clearTimeout(timer);
   }, [onLoad]);
 

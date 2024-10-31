@@ -148,6 +148,9 @@ const Home = () => {
 
   return (
     <EnergyProvider>
+      {isLoading ? (
+        <Loading />
+      ) :( 
   <div className="full-screen-adjust " >
     <div className="bg-black  flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
@@ -304,12 +307,12 @@ const Home = () => {
             </div>
           )}
 
-          {/* Bottom Navigation */}
-          <BottomNavigation />
+          
         </div>
       </div>
     </div>
     </div>
+    )}
     </EnergyProvider>
   );
 };
