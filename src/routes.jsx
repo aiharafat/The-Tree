@@ -3,7 +3,7 @@ import Mainlayouts from './components/layouts/Mainlayouts';
 import Home from './components/ui/pages/home';
 import Family from './components/ui/pages/Family';
 import ErrorElement from './components/ErrorElement';
-import Election from './components/ui/pages/Election';
+import Taskpage from './components/ui/pages/taskpage';
 import News from './components/ui/pages/News';
 import YouTubeNews from './components/ui/pages/YouTubeNews';
 import Airdrop from './components/ui/pages/Airdrop';
@@ -29,7 +29,7 @@ const MainRoutes = createBrowserRouter([
           { path: 'national', element: <National /> },           // Fix the route for National
         ]
       },
-      { path: 'Election', element: <Election /> },
+      { path: 'Taskpage', element: <Taskpage /> },
       { path: 'Airdrop', element: <Airdrop /> },
       { path: 'infoPage', element: <infoPage /> },
     ],

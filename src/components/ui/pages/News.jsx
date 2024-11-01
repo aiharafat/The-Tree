@@ -24,7 +24,7 @@ const News = () => {
 
   return (
     <EnergyProvider>
-      <div className="bg-[#1f2f40] min-h-screen pb-[100px] flex justify-center">
+      <div className="bg-[#1f2f40] min-h-screen pb-[80px] flex justify-center">
         <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
           <div className="px-3 z-0">
             <div className="flex items-center mt-[6px] justify-center pt-4">

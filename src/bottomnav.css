@@ -1,0 +1,67 @@
+/* Container */
+.bottom-nav {
+    position: fixed;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 600px;
+    background-color: #99bfb6;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 50;
+    height: 60px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #e2e2e2;
+    border-radius: 1.5rem;
+  }
+  
+  /* Shared icon styling */
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 auto;
+    transition: transform 0.3s;
+  }
+  
+  /* Active icon effect */
+  .active-icon {
+    transform: scale(1.25);
+    filter: brightness(1.5) hue-rotate(15deg);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Text styles */
+  .nav-text {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .text-active-home,
+  .text-active-family,
+  .text-active-news,
+  .text-active-task,
+  .text-active-airdrop {
+    font-weight: bold;
+  }
+  
+  /* Text color variations */
+  .text-active-home { color: white; }
+  .text-active-family { color: white; }
+  .text-active-news { color: white; }
+  .text-active-task { color: white; }
+  .text-active-airdrop { color:white; }
+  
+  /* Badge */
+  .notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 8px;
+    width: 8px;
+    background-color: #ef4444;
+    border-radius: 50%;
+  }
+  

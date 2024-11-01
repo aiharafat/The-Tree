@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { EnergyProvider } from "./EnergyContext";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 
-const Election = () => {
+const taskpage = () => {
   const [activeTab, setActiveTab] = useState("task");
-  
-  const tasks = [
+  //links provide section
+  const taskpage = [
     { name: "Subscribe to the Telegram channel", link: "https://t.me/+A0HeCmbeScFjZjJl", points: "+15" },
     { name: "Boost us", link: "/boost-blum", points: "+2" },
     { name: "Join our Instagram", link: "/join-instagram", points: "+5" },
@@ -23,7 +23,7 @@ const Election = () => {
         <div className="w-full bg-[#1f2f40] text-white h-screen font-bold flex flex-col max-w-xl">
           <div className="px-4 z-0">
             <div className="flex items-center justify-center space-x-2 pt-4">
-              <h1 className="text-2xl">Tasks</h1>
+              <h1 className="text-2xl">taskpage</h1>
             </div>
             
             {/* Tab Buttons */}
@@ -45,7 +45,7 @@ const Election = () => {
             {/* Content based on active tab */}
             <div className="mt-8 px-2 space-y-5">
               {activeTab === "task" ? (
-                tasks.map((task, index) => (
+                taskpage.map((task, index) => (
                   <div key={index} className="flex items-center justify-between p-4 bg-[#333] rounded-lg">
                     <Link to={task.link} className="text-white text-md">
                       {task.name}
@@ -72,4 +72,4 @@ const Election = () => {
   );
 };
 
-export default Election;
+export default taskpage;

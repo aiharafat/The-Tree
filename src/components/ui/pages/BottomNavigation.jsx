@@ -3,14 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
 import familyIcon from "../../../../public/assets/Family.png";
 import homeIcon from "../../../../public/assets/Home.png";
-import electionIcon from "../../../../public/assets/Election.png";
+import taskpageIcon from "../../../../public/assets/taskpage.png";
 import airdropIcon from "../../../../public/assets/Airdropp.png";
+
 
 const BottomNavigation = () => {
   const location = useLocation();
 
   // Function to check if the current link is active
   const isActive = (path) => location.pathname === path;
+
+  
 
   return (
     <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#99bfb6] p-[5px] flex justify-around items-center z-50 h-[60px] shadow-lg border-t border-gray-200 rounded-3xl">
@@ -30,7 +33,7 @@ const BottomNavigation = () => {
             />
             <span
               className={`text-sm ${
-                isActive("/Home") ? "text-blue-500 text-bold" : "text-gray-600"
+                isActive("/Home") ? "text-white text-bold" : "text-gray-600"
               }`}
             >
               Home
@@ -52,7 +55,7 @@ const BottomNavigation = () => {
             />
             <span
               className={`text-sm ${
-                isActive("/Family") ? "text-pink-500" : "text-gray-600"
+                isActive("/Family") ? "text-white" : "text-gray-600"
               }`}
             >
               Family
@@ -84,10 +87,10 @@ const BottomNavigation = () => {
         </Link>
 
         {/* Election Button */}
-        <Link to="/Election" className="text-center">
+        <Link to="/taskpage" className="text-center">
           <div className="relative">
             <img
-              src={electionIcon}
+              src={taskpageIcon}
               alt="Election Icon"
               className={`w-6 h-6 mx-auto transition-transform duration-300 ${
                 isActive("/Election")

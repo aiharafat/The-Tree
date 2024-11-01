@@ -5,16 +5,19 @@ import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import settingsIcon from "../../../../public/assets/settingss.png";
 import { Link, useLocation } from "react-router-dom";
 import newsIcon from "../../../../public/assets/News.png";
-import electionIcon from "../../../../public/assets/Election.png";
+import taskpageIcon from "../../../../public/assets/taskpage.png";
 import energyIcon from "../../../../public/assets/energy.png";
 import profileImg from "../../../../public/assets/profileimg.png";
 import infoPage from "./infoPage";
 import { EnergyProvider } from "./EnergyContext";
 import logoIcon from "../../../../public/assets/Logo.png";
 import Loading from "./Loading";
+import boosticon from"../../../../public/assets/energyy.png";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(!sessionStorage.getItem("hasLoadedBefore"));
+  const [showSettings, setShowSettings] = useState(false); // State for settings panel
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode
   const [tapped, setTapped] = useState(false); 
   const location = useLocation();
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
@@ -28,6 +31,13 @@ const Home = () => {
   const levelMinPoints = [ 0, 250, 1000, 2000, 4000, 10000, 50000, 10000, 100000, 1000000];
   const [levelIndex, setLevelIndex] = useState(0); 
 
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  const handleSettingsToggle = () => setShowSettings((prev) => !prev);
+   // Animation for the settings panel
+   const settingsAnimation = useSpring({
+    transform: showSettings ? "translateX(0)" : "translateX(100%)",
+    opacity: showSettings ? 1 : 0,
+  });
   // Adjust viewport height for Telegram
   const adjustViewportHeight = () => {
     const vh = window.innerHeight * 0.01;
@@ -39,7 +49,7 @@ const Home = () => {
     window.addEventListener("resize", adjustViewportHeight);
     return () => window.removeEventListener("resize", adjustViewportHeight);
   }, []);
-
+//level progress
   const calculateProgress = () => {
     if (levelIndex >= levelNames.length - 1) return 100;
     const currentLevelMin = levelMinPoints[levelIndex];
@@ -54,7 +64,7 @@ const Home = () => {
       setLevelIndex((prevIndex) => prevIndex - 1);
     }
   }, [coins, levelIndex]);
-
+//fetching from localstorage
   useEffect(() => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("energy", energy);
@@ -69,7 +79,7 @@ const Home = () => {
       localStorage.setItem("lastBoostDate", today);
     }
   }, []);
-
+//energy stats
   const handleTap = (e) => {
     if (energy <= 10) {
       setShowMessage(true);
@@ -82,17 +92,18 @@ const Home = () => {
       y: e.touches[0].clientY,
       id: Date.now(),
     };
-
+//adding coins
     const coinsToAdd = boostActive ? 20 : 10;
     setCoins((prevCoins) => prevCoins + coinsToAdd);
-    setEnergy((prevEnergy) => Math.max(prevEnergy - 10, 0));
+    
+    setEnergy((prevEnergy) => Math.max(prevEnergy -10, 0));
 
     setCoinPopups((prev) => [...prev, tapPosition]);
     setTimeout(() => {
       setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
     }, 500);
   };
-
+//boost mechanism
   const handleBoost = () => {
     if (boostCount > 0 && !boostActive) {
       setBoostActive(true);
@@ -113,24 +124,24 @@ const Home = () => {
       setShowMessage(true);
     }
   };
-
+//clicking the taptap button 
   const handleCardClick = () => {
     console.log("Tappable area clicked!");
     
   };
-
+//energy increasing
   useEffect(() => {
     const interval = setInterval(() => {
       setEnergy((prevEnergy) => (prevEnergy < 1000 ? prevEnergy + 1 : 1000));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
+//button animation
   const buttonAnimation = useSpring({
     transform: tapped ? "scale(1.3)" : "scale(1)",
     config: { tension: 300, friction: 10 },
   });
-
+//loading mechanism
   useEffect(() => {
     if (isLoading) {
       const timer = setTimeout(() => {
@@ -151,7 +162,8 @@ const Home = () => {
       {isLoading ? (
         <Loading />
       ) :( 
-  <div className="full-screen-adjust " >
+
+  <div className={`full-screen-adjust ${showSettings ? "blur-sm" : ""}`}> 
     <div className="bg-black  flex justify-center">
       <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
        <div className="flex items-center space-x-2 ">
@@ -161,7 +173,7 @@ const Home = () => {
                     <img
                       src={profileImg}
                       alt="Profile Icon"
-                      className={`w-[30px] h-[30px] rounded-full p-[2px] bg-gradient-to-r from-yellow-100 to-yellow-600 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow-lg filter hue-rotate-15" : "brightness-100"}`}
+                      className={`w-[30px] h-[30px] rounded-full p-[2px] bg-gradient-to-r from-yellow-100 to-yellow-900 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow- filter hue-rotate-15" : "brightness-100"}`}
                     />
                     <span className={`text-sm ${isActive("/infoPage") ? "text-purple-500" : "text-gray-600"}`}></span>
                   </div>
@@ -171,12 +183,27 @@ const Home = () => {
           
           </div>
            {/* settings icon */}
-           <div className="absolute top-0 right-[20px] mt-4 flex items-center text-white ">
-           <img src={settingsIcon} className="w-[40px] h-[40px]" />
+           <div className="absolute top-0 right-[10px] mt-3 flex items-center text-white ">
+           <img src={settingsIcon} className="w-[30px] h-[30px]" onClick={handleSettingsToggle}  />
             
             
           </div>
             
+            <animated.div 
+            style={settingsAnimation}
+            className="fixed top-0 right-0 h-1/3 w-1/2 bg-[#2b3b4b] text-white shadow-lg p-4"
+            >
+               <h2 className="text-lg font-semibold mb-4">Settings</h2>
+              <div className="mb-2">
+                <label className="flex items-center space-x-2">
+                  <span>Dark Mode</span>
+                  <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
+                </label>
+              </div>
+
+            </animated.div>
+
+
         </div>
         <div className="relative z-10 px-2">
           <div className="flex items-center mt-8 w-1/3">
@@ -285,16 +312,18 @@ const Home = () => {
 
           <div className="flex justify-between gap-3 px-2 py-3">
             {/* Energy Display */}
-            <div className="flex items-center px-2 w-[130px] h-8 bg-gray-800 text-white rounded-md shadow-lg">
+            <div className="flex items-center px-2 w-[130px] h-[40px] bg-gray-800 text-white rounded-md shadow-lg">
               <img src={energyIcon} className="w-[20px] h-[20px] mr-2" />
               <span>{energy}/1000</span>
             </div>
 
             {/* Boost Button */}
             <div
-              className="flex items-center px-2 w-[150px] h-8 bg-gray-800 text-white rounded-md shadow-lg"
+              className="flex items-center px-2 w-[150px] h-[40px] bg-gray-800 text-white rounded-md shadow-lg"
               onClick={handleBoost}
+            
             >
+              <img src={boosticon} className=" w-[20px] h-[20px] mr-2"></img>
               <span>{boostCount > 0 ? `Boost (${boostCount} left)` : "No Boosts Left"}</span>
               
             </div>
