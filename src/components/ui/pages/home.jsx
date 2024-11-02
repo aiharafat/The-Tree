@@ -93,37 +93,43 @@ const Home = () => {
       id: Date.now(),
     };
 //adding coins
-    const coinsToAdd = boostActive ? 20 : 10;
-    setCoins((prevCoins) => prevCoins + coinsToAdd);
-    
-    setEnergy((prevEnergy) => Math.max(prevEnergy -10, 0));
+  // Adding coins
+const coinsToAdd = boostActive ? 20 : 10;
+setCoins((prevCoins) => prevCoins + coinsToAdd);
 
-    setCoinPopups((prev) => [...prev, tapPosition]);
-    setTimeout(() => {
-      setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
-    }, 500);
-  };
-//boost mechanism
-  const handleBoost = () => {
-    if (boostCount > 0 && !boostActive) {
-      setBoostActive(true);
-      setBoostCount((prevCount) => prevCount - 1);
-      setBoostTimer(30);
+// Reduce energy only if boost is not active
+if (!boostActive) {
+  setEnergy((prevEnergy) => Math.max(prevEnergy - 10, 0));
+}
 
-      const boostInterval = setInterval(() => {
-        setBoostTimer((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(boostInterval);
-            setBoostActive(false);
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    } else {
-      setShowMessage(true);
-    }
-  };
+setCoinPopups((prev) => [...prev, tapPosition]);
+setTimeout(() => {
+  setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
+}, 500);
+};
+
+// Boost mechanism
+const handleBoost = () => {
+  if (boostCount > 0 && !boostActive) {
+    setBoostActive(true);
+    setBoostCount((prevCount) => prevCount - 1);
+    setBoostTimer(30);
+
+    const boostInterval = setInterval(() => {
+      setBoostTimer((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(boostInterval);
+          setBoostActive(false);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+  } else {
+    setShowMessage(true);
+  }
+};
+
 //clicking the taptap button 
   const handleCardClick = () => {
     console.log("Tappable area clicked!");

@@ -1,0 +1,85 @@
+/* Airdrop container and layout styles */
+.full-screen-adjust {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.airdrop-container {
+    width: 100%;
+    background-color: #1f2f40;
+    color: white;
+    height: 100vh;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    max-width: 640px; /* equivalent to max-w-xl */
+}
+
+/* Black screen overlay */
+.black-screen {
+    width: 100%;
+    height: 100%;
+    background-color: #1f2f40;
+}
+
+.black-screen-text {
+    display: flex;
+    align-items: center;
+    margin-top: 150px;
+    justify-content: center;
+    padding-top: 20px;
+    opacity: 0.9;
+    font-size: 7rem;
+}
+
+/* Header */
+.header {
+    padding: 0 1rem;
+    position: relative;
+    z-index: 0;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    font-size: 2rem;
+}
+
+/* Main content and form */
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+}
+
+.content-inner {
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem 3rem;
+    font-size: 1.25rem;
+}
+
+.input-field {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    background-color: #2d3748;
+    color: white;
+    width: 100%;
+}
+
+.add-wallet-button {
+    margin-top: 1rem;
+    background-color: #2563eb;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.add-wallet-button:hover {
+    background-color: #3b82f6;
+}
