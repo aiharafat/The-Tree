@@ -1,0 +1,95 @@
+/* Family.css */
+
+.container {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .family-wrapper {
+    width: 100%;
+    background-color: #1f2f40;
+    color: black;
+    height: 100vh;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    max-width: 768px;
+  }
+  
+  .content {
+    padding: 2.5rem;
+    z-index: 0;
+  }
+  
+  .heading {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  
+  .heading-text {
+    margin-top: 0.5rem;
+  }
+  
+  .invite-section {
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-around;
+    transition: all 0.3s ease;
+  }
+  
+  .invite-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+    width: 12rem;
+    height: 4rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .invite-button-wrapper.clicked {
+    width: 16rem;
+    height: 5rem;
+  }
+  
+  .invite-button {
+    background-color: #333333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .message {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+  
+  .family-list-section {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .family-list,
+  .generation-list {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 50%;
+  }
+  
+  .list-title {
+    text-align: center;
+  }
+  
+  .list-item {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
