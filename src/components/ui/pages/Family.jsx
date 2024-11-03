@@ -26,12 +26,12 @@ const Family = () => {
 
   return (
     <EnergyProvider>
-      <div className="container">
-        <div className="family-wrapper">
-          <div className="content">
+      <div className="full-screen-adjust">
+        <div className="family-container">
+          <div className="content-wrapper">
             {/* Heading */}
             <div className="heading">
-              <p className="heading-text">Invite Friends!<br />Increase your family and get 100k bonus</p>
+              <p>Invite Friends!<br />Increase your family and get 100k bonus</p>
             </div>
 
             {/* Invite Section */}

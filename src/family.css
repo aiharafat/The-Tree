@@ -1,12 +1,12 @@
 /* Family.css */
 
-.container {
+.full-screen-adjust {
     background-color: white;
     display: flex;
     justify-content: center;
   }
   
-  .family-wrapper {
+  .family-container {
     width: 100%;
     background-color: #1f2f40;
     color: black;
@@ -17,7 +17,7 @@
     max-width: 768px;
   }
   
-  .content {
+  .content-wrapper {
     padding: 2.5rem;
     z-index: 0;
   }
@@ -28,7 +28,7 @@
     margin-top: 2.5rem;
   }
   
-  .heading-text {
+  .heading p {
     margin-top: 0.5rem;
   }
   
@@ -39,7 +39,7 @@
     border-radius: 12px;
     display: flex;
     justify-content: space-around;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
   }
   
   .invite-button-wrapper {
