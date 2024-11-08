@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
-import BottomNavigation from "./BottomNavigation";
 import dollarCoin from "../../../../public/assets/dollar-coin.png";
 import settingsIcon from "../../../../public/assets/settingss.png";
 import { Link, useLocation } from "react-router-dom";
-import newsIcon from "../../../../public/assets/News.png";
-import taskpageIcon from "../../../../public/assets/taskpage.png";
 import energyIcon from "../../../../public/assets/energy.png";
 import profileImg from "../../../../public/assets/profileimg.png";
-import infoPage from "./infoPage";
 import { EnergyProvider } from "./EnergyContext";
 import logoIcon from "../../../../public/assets/Logo.png";
 import Loading from "./Loading";
@@ -16,8 +12,6 @@ import boosticon from"../../../../public/assets/energyy.png";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(!sessionStorage.getItem("hasLoadedBefore"));
-  const [showSettings, setShowSettings] = useState(false); // State for settings panel
-  const [darkMode, setDarkMode] = useState(false); // State for dark mode
   const [tapped, setTapped] = useState(false); 
   const location = useLocation();
   const [coins, setCoins] = useState(() => parseInt(localStorage.getItem("coins")) || 0);
@@ -28,16 +22,10 @@ const Home = () => {
   const [boostCount, setBoostCount] = useState(() => parseInt(localStorage.getItem("boostCount")) || 3);
   const [boostTimer, setBoostTimer] = useState(0);
   const levelNames = [ "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Epic", "Legendary", "Master", "GrandMaster", "Lord"];
-  const levelMinPoints = [ 0, 250, 1000, 2000, 4000, 10000, 50000, 10000, 100000, 1000000];
+  const levelMinPoints = [ 0, 1000, 3000, 5000, 1000, 30000, 50000, 10000, 100000, 1000000];
   const [levelIndex, setLevelIndex] = useState(0); 
 
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
-  const handleSettingsToggle = () => setShowSettings((prev) => !prev);
-   // Animation for the settings panel
-   const settingsAnimation = useSpring({
-    transform: showSettings ? "translateX(0)" : "translateX(100%)",
-    opacity: showSettings ? 1 : 0,
-  });
+  
   // Adjust viewport height for Telegram
   const adjustViewportHeight = () => {
     const vh = window.innerHeight * 0.01;
@@ -49,7 +37,9 @@ const Home = () => {
     window.addEventListener("resize", adjustViewportHeight);
     return () => window.removeEventListener("resize", adjustViewportHeight);
   }, []);
-//level progress
+ 
+ 
+  //level progress
   const calculateProgress = () => {
     if (levelIndex >= levelNames.length - 1) return 100;
     const currentLevelMin = levelMinPoints[levelIndex];
@@ -64,12 +54,15 @@ const Home = () => {
       setLevelIndex((prevIndex) => prevIndex - 1);
     }
   }, [coins, levelIndex]);
+
+
 //fetching from localstorage
   useEffect(() => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("energy", energy);
     localStorage.setItem("boostCount", boostCount);
   }, [coins, energy, boostCount]);
+
 
   useEffect(() => {
     const lastBoostDate = localStorage.getItem("lastBoostDate");
@@ -94,14 +87,16 @@ const Home = () => {
     };
 //adding coins
   // Adding coins
-const coinsToAdd = boostActive ? 20 : 10;
-setCoins((prevCoins) => prevCoins + coinsToAdd);
+  const coinsToAdd = levelIndex + 1; // Coin increase based on level
+
+setCoins((prevCoins) => prevCoins + (boostActive ? coinsToAdd * 2 : coinsToAdd));
 
 // Reduce energy only if boost is not active
 if (!boostActive) {
-  setEnergy((prevEnergy) => Math.max(prevEnergy - 10, 0));
+  setEnergy((prevEnergy) => Math.max(prevEnergy - coinsToAdd , 0));
 }
 
+//coins popup
 setCoinPopups((prev) => [...prev, tapPosition]);
 setTimeout(() => {
   setCoinPopups((prev) => prev.filter((popup) => popup.id !== tapPosition.id));
@@ -145,7 +140,7 @@ const handleBoost = () => {
 //button animation
   const buttonAnimation = useSpring({
     transform: tapped ? "scale(1.3)" : "scale(1)",
-    config: { tension: 300, friction: 10 },
+    config: { tension: 0, friction: 0 },
   });
 //loading mechanism
   useEffect(() => {
@@ -168,49 +163,35 @@ const handleBoost = () => {
       {isLoading ? (
         <Loading />
       ) :( 
-
-  <div className={`full-screen-adjust ${showSettings ? "blur-sm" : ""}`}> 
-    <div className="bg-black  flex justify-center">
-      <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
-       <div className="flex items-center space-x-2 ">
-          <div className="absolute top-0  mt-4 flex items-center  px-2 text-white">  
-          <Link to="/infoPage" className="text-center">
-                  <div className="relative">
-                    <img
-                      src={profileImg}
-                      alt="Profile Icon"
-                      className={`w-[30px] h-[30px] rounded-full p-[2px] bg-gradient-to-r from-yellow-100 to-yellow-900 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow- filter hue-rotate-15" : "brightness-100"}`}
-                    />
-                    <span className={`text-sm ${isActive("/infoPage") ? "text-purple-500" : "text-gray-600"}`}></span>
-                  </div>
-                </Link>
-           <span className="px-1">Arafat</span>
+          <div className="bg-black  flex justify-center">
+            <div className="w-full bg-[#1f2f40] h-screen font-bold flex flex-col max-w-xl relative">
+              <div className="flex items-center space-x-2 ">
+                <div className="absolute top-0  mt-4 flex items-center  px-2 text-white">  
+                  <Link to="/infoPage" className="text-center">
+                    <div className="relative">
+                      <img
+                       src={profileImg}
+                       alt="Profile Icon"
+                       className={`w-[30px] h-[30px] rounded-full p-[2px] bg-gradient-to-r from-yellow-100 to-yellow-900 mx-auto transition-transform duration-300 ${isActive("/News") ? "transform scale-125 brightness-150 shadow- filter hue-rotate-15" : "brightness-100"}`}
+                      />
+                     <span className={`text-sm ${isActive("/infoPage") ? "text-purple-500" : "text-gray-600"}`}></span>
+                    </div>
+                  </Link>
+                  <span className="px-1">Arafat</span>
            
           
+                </div>
+                 {/* settings icon */}
+           <div className="absolute top-0 right-[10px] mt-3 flex items-center text-white">
+          <img
+          src={settingsIcon}
+          className="w-[30px] h-[30px] cursor-pointer"
+          
+          alt="Settings Icon"
+           />
           </div>
-           {/* settings icon */}
-           <div className="absolute top-0 right-[10px] mt-3 flex items-center text-white ">
-           <img src={settingsIcon} className="w-[30px] h-[30px]" onClick={handleSettingsToggle}  />
-            
-            
-          </div>
-            
-            <animated.div 
-            style={settingsAnimation}
-            className="fixed top-0 right-0 h-1/3 w-1/2 bg-[#2b3b4b] text-white shadow-lg p-4"
-            >
-               <h2 className="text-lg font-semibold mb-4">Settings</h2>
-              <div className="mb-2">
-                <label className="flex items-center space-x-2">
-                  <span>Dark Mode</span>
-                  <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
-                </label>
-              </div>
-
-            </animated.div>
-
-
-        </div>
+           </div>
+          
         <div className="relative z-10 px-2">
           <div className="flex items-center mt-8 w-1/3">
             <div className="w-full ">
@@ -312,7 +293,7 @@ const handleBoost = () => {
                 fontSize: "40px", // Adjust size
               }}
             >
-              +{boostActive ? 20 : 10}
+              +{boostActive ? (levelIndex + 1 )* 2 : levelIndex + 1}
             </div>
           ))}
 
@@ -346,7 +327,9 @@ const handleBoost = () => {
         </div>
       </div>
     </div>
-    </div>
+    
+
+   
     )}
     </EnergyProvider>
   );
